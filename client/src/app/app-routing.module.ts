@@ -1,49 +1,70 @@
-import { ThankyouComponent } from './thankyou/thankyou.component';
-import { OrderComponent } from './order/order.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { AuthGuardGuard } from './_guard/auth-guard.guard';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { NotfoundComponent } from './notfound/notfound.component';
-import { ServerErrorComponent } from './server-error/server-error.component';
-import { ProductDetailComponent } from './shop/product-detail/product-detail.component';
-import { ShopComponent } from './shop/shop.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import {
+  _trainers_route,
+  _signup_route,
+  _login_route,
+  _editAccount_route,
+  _editCertification_route,
+  _myMessages_route,
+  _dashboardStats_route,
+  _dashboardHome_route,
+  _landing_route,
+  _settings_route,
+} from './_data/_route';
+import { DashboardHomeComponent } from './pages/dashboard/dashboard-home/dashboard-home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AlltrainersComponent } from './pages/alltrainers/alltrainers.component';
+import { DashboardAccountsComponent } from './pages/dashboard/dashboard-accounts/dashboard-accounts.component';
+import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-certifications/dashboard-certifications.component';
+import { DashboardMessagesComponent } from './pages/dashboard/dashboard-messages/dashboard-messages.component';
+import { DashboardSettingsComponent } from './pages/dashboard/dashboard-settings/dashboard-settings.component';
+import { DashboardStatsComponent } from './pages/dashboard/dashboard-stats/dashboard-stats.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { SingletrainerComponent } from './pages/singletrainer/singletrainer.component';
+import { AuthGuard } from './_guard/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: ShopComponent },
-  { path: 'shop/:id', component: ProductDetailComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: RegisterComponent },
-  {
-    path: 'server-error',
-    component: ServerErrorComponent,
-  },
-  {
-    path: 'not-found',
-    component: NotfoundComponent,
-  },
-  {
-    path: 'thankyou',
-    component: ThankyouComponent,
-  },
+  { path: _login_route, component: LoginComponent },
+  { path: _signup_route, component: SignupComponent },
+  { path: _trainers_route, component: AlltrainersComponent },
+  { path: `${_trainers_route}/:id`, component: SingletrainerComponent },
+  { path: _landing_route, component: LandingComponent },
+
   {
     path: '',
     runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuardGuard],
+    canActivate: [AuthGuard],
     children: [
       {
-        path: 'checkout',
-        component: CheckoutComponent,
+        path: _editAccount_route, //this route can be access both trainer and users
+        component: DashboardAccountsComponent,
+      },
+      //=============================== These routes below can only be access by trainer
+      {
+        path: _editCertification_route,
+        component: DashboardCertificationsComponent,
       },
       {
-        path: 'order',
-        component: OrderComponent,
+        path: _myMessages_route,
+        component: DashboardMessagesComponent,
       },
+      {
+        path: _settings_route,
+        component: DashboardSettingsComponent,
+      },
+      {
+        path: _dashboardStats_route,
+        component: DashboardStatsComponent,
+      },
+      {
+        path: _dashboardHome_route,
+        component: DashboardHomeComponent,
+      },
+      //=============================== These routes above can only be access by trainer
     ],
   },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 
 @NgModule({

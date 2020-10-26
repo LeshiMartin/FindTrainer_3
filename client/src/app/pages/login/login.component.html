@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form
+        class="needs-validation"
+        [formGroup]="developerForm"
+        (ngSubmit)="submitFunc()"
+      >
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                developerForm.get('email').errors &&
+                developerForm.get('email').touched
+            }"
+          />
+          <div class="invalid-feedback">
+            Please enter a valid email address.
+          </div>
+        </div>
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid':
+                developerForm.get('password').errors &&
+                developerForm.get('password').touched
+            }"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              developerForm.get('password').hasError('required') &&
+              developerForm.get('password').touched
+            "
+          >
+            Password is required
+          </div>
+
+          <!-- Error Messages -->
+        </div>
+        <hr class="mb-4" />
+        <button
+          *ngIf="!isLoading"
+          class="btn btn-lg btn-block btn-warning"
+          [disabled]="!developerForm.valid"
+          type="submit"
+        >
+          Submit
+        </button>
+        <div class="col-12 text-center" *ngIf="isLoading">
+          <!-- <img
+            src="../../../assets/loading.gif"
+            style="height: 50px; width: 50ox"
+          /> -->
+        </div>
+      </form>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

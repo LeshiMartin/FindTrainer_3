@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:5001/api/',
+  config: {
+    apiKey: 'AIzaSyBnGgMKl-93iIkIaAA8N34K_kMCLefn9sI',
+    authDomain: 'findtrainer-fb4af.firebaseapp.com',
+    databaseURL: 'https://findtrainer-fb4af.firebaseio.com',
+    projectId: 'findtrainer-fb4af',
+    storageBucket: 'findtrainer-fb4af.appspot.com',
+    messagingSenderId: '502571684674',
+    appId: '1:502571684674:web:80faf02ca66609cf8d2edb',
+    measurementId: 'G-QNZPTJL52F',
+  },
 };
 
 /*
