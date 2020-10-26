@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 
 import { _login_route } from '../_data/_route';
+import { Role } from '../_model/_Enum/Role';
 import { AuthService } from '../_services/auth.service';
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,7 @@ import { AuthService } from '../_services/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private AuthS: AuthService) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.AuthS.checkIfUser();
+  canActivate() {
+    return this.AuthS.checkIfRole(Role.user);
   }
 }

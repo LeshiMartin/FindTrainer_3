@@ -35,6 +35,7 @@ const routes: Routes = [
   {
     path: '',
     runGuardsAndResolvers: 'always',
+
     canActivate: [AuthGuard],
     children: [
       {

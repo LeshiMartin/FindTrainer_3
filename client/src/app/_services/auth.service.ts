@@ -13,6 +13,8 @@ import {
 import { SignUpDTO } from '../_model/_Dto/BaseUserDTO';
 import { map, first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { _isTrainer, _isUser } from '../_data/_customClaims';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,34 +26,20 @@ export class AuthService {
     // private functions: AngularFireFunctions,
     private tAlert: ToastrService
   ) {}
-  checkIfUser() {
-    return this.afAuth.authState.pipe(
-      map((res) => {
-        if (res) {
-          console.log('res', res);
-          return true;
-        }
-        this.router.navigate([_login_route]);
-        return false;
-      })
-    );
-  }
-  async checkIfTrainer(): Promise<boolean> {
+
+  checkIfRole(role: Role) {
     return this.afAuth.authState
       .pipe(
-        map((res) => {
+        map(async (res) => {
           if (res) {
-            return res.getIdTokenResult().then((d) => d.claims.isTrainer);
+            const roleName = role === Role.trainer ? _isTrainer : _isUser;
+            const token = await res.getIdTokenResult();
+            return !!token.claims[roleName];
           }
           return false;
         })
       )
-      .toPromise()
-      .then((res) => !!res)
-      .catch((err) => {
-        this.tAlert.error(err);
-        return false;
-      });
+      .toPromise();
   }
 
   private updateUserData(uid: string, signupData: SignUpDTO): Promise<void> {

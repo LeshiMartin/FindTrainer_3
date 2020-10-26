@@ -6,7 +6,6 @@ const randomNumber = (min, max) => {
 const generate2Focus = () => {
   let max = focus.length - 1;
   let min = 0;
-  let mid = Math.floor(max / 2);
   return [focus[randomNumber(min, max)]];
 };
 
@@ -17,7 +16,6 @@ exports.randomUsers = () => {
       name,
       profileUrl: "https://ibb.co/wQcgHv4",
       gender: 1,
-      role: 0,
     };
   });
 };
@@ -32,7 +30,6 @@ exports.randomTrainers = () => {
     return {
       name,
       gender: 1,
-      role: 1,
       focus: generate2Focus(),
       created: Date.now(),
       ...address[randomNumber(0, address.length - 1)],
