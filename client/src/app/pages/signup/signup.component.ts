@@ -1,8 +1,8 @@
-import { _dashboardHome_route } from './../../_data/_route';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { _landing_route } from 'src/app/_data/_route';
 import { SignUpDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -54,8 +54,8 @@ export class SignupComponent implements OnInit {
     const form = this.developerForm.value;
     this.authService
       .signUp(form)
-      .then(() => {
-        this.router.navigate([_dashboardHome_route]);
+      .then((res) => {
+        this.router.navigate([_landing_route]);
       })
       .catch((error) => {
         this.toastr.error(error.message);

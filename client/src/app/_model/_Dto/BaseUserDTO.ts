@@ -21,7 +21,7 @@ export class SignInDTO implements IAuth {
 
 export class SignUpTrainerDTO implements ITrainer {
   uid: string;
-  role: Role;
+
   gender: Gender;
   name: string;
   profileUrl: string;
@@ -45,7 +45,6 @@ export class SignUpTrainerDTO implements ITrainer {
     profileUrl: string
   ) {
     this.uid = uid;
-    this.role = role;
     this.gender = gender;
     this.name = name;
     this.profileUrl = profileUrl;

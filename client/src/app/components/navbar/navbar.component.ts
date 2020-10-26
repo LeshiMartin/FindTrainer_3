@@ -25,7 +25,7 @@ export class NavbarComponent {
   }
 
   isAuthenticated() {
-    this.authService.checkIfUser().subscribe((res) => {
+    this.authService.checkIfLogin().subscribe((res) => {
       if (res) {
         this.isLoggined = true;
       } else {

@@ -12,15 +12,14 @@ import {
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AlltrainersComponent } from './pages/alltrainers/alltrainers.component';
-import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-certifications/dashboard-certifications.component';
-import { DashboardMessagesComponent } from './pages/dashboard/dashboard-messages/dashboard-messages.component';
-import { DashboardSettingsComponent } from './pages/dashboard/dashboard-settings/dashboard-settings.component';
-import { DashboardStatsComponent } from './pages/dashboard/dashboard-stats/dashboard-stats.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { SingletrainerComponent } from './pages/singletrainer/singletrainer.component';
-import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer-account/dashboard-trainer-account.component';
-import { DashboardUserAccountComponent } from './pages/dashboard/dashboard-user-account/dashboard-user-account.component';
+import { DashboardUserAccountComponent } from './pages/dashboard/dashboard-user/dashboard-user-account/dashboard-user-account.component';
+import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer-account/dashboard-trainer-account.component';
+import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-trainer/dashboard-certifications/dashboard-certifications.component';
+import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/dashboard-messages/dashboard-messages.component';
+import { DashboardStatsComponent } from './pages/dashboard/dashboard-trainer/dashboard-stats/dashboard-stats.component';
 
 const routes: Routes = [
   { path: _login_route, component: LoginComponent },

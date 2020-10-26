@@ -1,26 +1,14 @@
 import {
-  _dashboardHome_route,
   _dashboardStats_route,
-  _editAccount_route,
+  _editAccount,
   _editCertification_route,
   _myMessages_route,
-  _settings_route,
 } from './_route';
 export const _UserSideboard = [
   {
-    name: 'Dashboard',
-    icon: 'fas fa-home',
-    route: _dashboardHome_route,
-  },
-  {
     name: 'Account',
     icon: 'fas fa-user-circle',
-    route: _editAccount_route,
-  },
-  {
-    name: 'Setting',
-    icon: 'fas fa-cog',
-    route: _settings_route,
+    route: _editAccount,
   },
 ];
 export const _TrainerSideBoard = [

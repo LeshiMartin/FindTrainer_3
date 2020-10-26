@@ -27,20 +27,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TrainerItemComponent } from './components/trainer-item/trainer-item.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { CommonModule } from '@angular/common';
-import { DashboardMessagesComponent } from './pages/dashboard/dashboard-messages/dashboard-messages.component';
-import { DashboardAccountsComponent } from './pages/dashboard/dashboard-accounts/dashboard-accounts.component';
-import { DashboardSettingsComponent } from './pages/dashboard/dashboard-settings/dashboard-settings.component';
 import { DashboardSidebarComponent } from './pages/dashboard/dashboard-sidebar/dashboard-sidebar.component';
-import { DashboardStatsComponent } from './pages/dashboard/dashboard-stats/dashboard-stats.component';
-import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-certifications/dashboard-certifications.component';
-import { DashboardBlogsComponent } from './pages/dashboard/dashboard-blogs/dashboard-blogs.component';
-import { DashboardHomeComponent } from './pages/dashboard/dashboard-home/dashboard-home.component';
-import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer-account/dashboard-trainer-account.component';
-import { DashboardUserAccountComponent } from './pages/dashboard/dashboard-user-account/dashboard-user-account.component';
-import { DashboardSidebarUserComponent } from './pages/dashboard/dashboard-sidebar-user/dashboard-sidebar-user.component';
-import { DashboardSidebarTrainerComponent } from './pages/dashboard/dashboard-sidebar-trainer/dashboard-sidebar-trainer.component';
+import { DashboardUserAccountComponent } from './pages/dashboard/dashboard-user/dashboard-user-account/dashboard-user-account.component';
 import { DashboardTrainerComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer.component';
 import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
+import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/dashboard-messages/dashboard-messages.component';
+import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-trainer/dashboard-certifications/dashboard-certifications.component';
+import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer-account/dashboard-trainer-account.component';
 // 2. Add your credentials from step 1
 
 @NgModule({
@@ -56,17 +49,13 @@ import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboa
     TrainerItemComponent,
     RatingComponent,
     DashboardMessagesComponent,
-    DashboardAccountsComponent,
-    DashboardSettingsComponent,
+    DashboardTrainerComponent,
     DashboardSidebarComponent,
-    DashboardStatsComponent,
+    DashboardUserComponent,
     DashboardCertificationsComponent,
-    DashboardBlogsComponent,
-    DashboardHomeComponent,
+    DashboardUserComponent,
     DashboardTrainerAccountComponent,
     DashboardUserAccountComponent,
-    DashboardSidebarUserComponent,
-    DashboardSidebarTrainerComponent,
     DashboardTrainerComponent,
     DashboardUserComponent,
   ],
