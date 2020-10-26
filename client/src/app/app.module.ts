@@ -35,6 +35,12 @@ import { DashboardStatsComponent } from './pages/dashboard/dashboard-stats/dashb
 import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-certifications/dashboard-certifications.component';
 import { DashboardBlogsComponent } from './pages/dashboard/dashboard-blogs/dashboard-blogs.component';
 import { DashboardHomeComponent } from './pages/dashboard/dashboard-home/dashboard-home.component';
+import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer-account/dashboard-trainer-account.component';
+import { DashboardUserAccountComponent } from './pages/dashboard/dashboard-user-account/dashboard-user-account.component';
+import { DashboardSidebarUserComponent } from './pages/dashboard/dashboard-sidebar-user/dashboard-sidebar-user.component';
+import { DashboardSidebarTrainerComponent } from './pages/dashboard/dashboard-sidebar-trainer/dashboard-sidebar-trainer.component';
+import { DashboardTrainerComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer.component';
+import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
 // 2. Add your credentials from step 1
 
 @NgModule({
@@ -57,6 +63,12 @@ import { DashboardHomeComponent } from './pages/dashboard/dashboard-home/dashboa
     DashboardCertificationsComponent,
     DashboardBlogsComponent,
     DashboardHomeComponent,
+    DashboardTrainerAccountComponent,
+    DashboardUserAccountComponent,
+    DashboardSidebarUserComponent,
+    DashboardSidebarTrainerComponent,
+    DashboardTrainerComponent,
+    DashboardUserComponent,
   ],
   imports: [
     RatingModule.forRoot(),

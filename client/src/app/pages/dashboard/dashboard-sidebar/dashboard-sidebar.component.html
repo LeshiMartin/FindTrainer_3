@@ -1,5 +1,5 @@
 <div class="row">
-  <!-- <nav
+  <nav
     id="sidebarMenu"
     class="col-md-3 col-lg-2 d-md-block bg-light border border-primary sidebar collapse"
   >
@@ -9,7 +9,7 @@
           <a
             class="nav-link active"
             [routerLink]="'/' + item.route"
-            *ngFor="let item of sideBarContent"
+            *ngFor="let item of SideboardList"
           >
             <i [class]="item.icon"></i>
             {{ item.name }}
@@ -17,8 +17,11 @@
         </li>
       </ul>
     </div>
-  </nav> -->
-  <nav
+  </nav>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <ng-content></ng-content>
+  </main>
+  <!-- <nav
     class="navbar dark"
     (mouseover)="onHover = true"
     (mouseout)="onHover = false"
@@ -74,5 +77,5 @@
     }"
   >
     <ng-content></ng-content>
-  </main>
+  </main> -->
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   _TrainerSideBoard,
@@ -14,18 +14,6 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./dashboard-sidebar.component.css'],
 })
 export class DashboardSidebarComponent {
-  sideBarContent = ([] = _TrainerSideBoard);
-  constructor(private authS: AuthService, private router: Router) {
-    // this.contentInit();
-  }
-  onHover = true;
-  // contentInit() {
-  //   this.authS.currentUserData$.subscribe((res: IBaseUser | AllTrainersDTO) => {
-  //     if (res.role === Role.user) {
-  //       this.sideBarContent = _UserSideboard;
-  //     } else if (res.role === Role.trainer) {
-  //       this.sideBarContent = _TrainerSideBoard;
-  //     }
-  //   });
-  // }
+  @Input() SideboardList: any[] = [];
+  constructor() {}
 }
