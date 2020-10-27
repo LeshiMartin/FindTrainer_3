@@ -1,6 +1,6 @@
-<div class="main">
+<!-- <div class="main">
   <div class="row py-3 px-4">
-    <!-- Profile widget -->
+
     <div class="col-8">
       <div class="bg-white shadow rounded widget">
         <div class="px-4 pt-0 pb-4 cover">
@@ -31,4 +31,184 @@
     <div class="col"></div>
   </div>
 </div>
-{{ currentTrainer | json }}
+{{ currentTrainer | json }} -->
+<br /><!-- <p>landing works!</p> -->
+
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <section>
+        <div class="mian-container">
+          <div class="header-image-container"></div>
+          <div class="profile-image-container"></div>
+          <div class="profile-content-container">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 mt-5">
+                  <div class="display-4 text-dark mt-3">Smart Coder</div>
+                  <p class="mb-0">Web Engineer</p>
+                  <p class="mb-0">Islamabad, Pakistan</p>
+                  <p
+                    class="mb-0 text-primary open-modal-link"
+                    (click)="rating(rate)"
+                  >
+                    rating
+                  </p>
+                  <a
+                    class="text-primary open-modal-link"
+                    (click)="open(content)"
+                    >Contact Info</a
+                  >
+                </div>
+                <div class="col-md-6 my-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <button class="btn btn-primary btn-block">
+                        Write a review
+                      </button>
+                    </div>
+                    <div class="col-md-3">
+                      <button class="btn btn-block btn-outline-primary">
+                        Message
+                      </button>
+                    </div>
+                    <div class="col-md-3">
+                      <button class="btn btn-block btn-outline-dark">
+                        More...
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row my-3">
+                    <div class="col-12">
+                      <h5>Software Engieering Form Pakistan</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-3">
+      <div class="adds-box py-1 px-1 bg-success">
+        <img class="img-fluid" src="../../../assets/test-ad.png" />
+      </div>
+      <div class="related-persons my-3 py-5 px-2 bg-secondary">
+        <p>user related persons display here</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="name">name</label>
+        <div class="input-group">
+          <input
+            id="name"
+            type="text"
+            class="form-control"
+            placeholder="user anme"
+            name="dp"
+            ngbDatepicker
+            #dp="ngbDatepicker"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Contact</label>
+        <div class="input-group">
+          <input
+            id="name"
+            type="number"
+            class="form-control"
+            placeholder="contact #"
+            name="dp"
+            ngbDatepicker
+            #dp="ngbDatepicker"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Email</label>
+        <div class="input-group">
+          <input
+            id="name"
+            type="email"
+            class="form-control"
+            placeholder="email addres"
+            name="dp"
+            ngbDatepicker
+            #dp="ngbDatepicker"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #rate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="name">name</label>
+        <div class="input-group">
+          <input
+            id="name"
+            type="number"
+            class="form-control"
+            min="1"
+            max="5"
+            placeholder="rating point"
+            name="dp"
+            ngbDatepicker
+            #dp="ngbDatepicker"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

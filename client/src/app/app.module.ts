@@ -41,6 +41,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 // 2. Add your credentials from step 1
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +90,7 @@ import { HttpClientModule } from '@angular/common/http';
       preventDuplicates: true,
       progressBar: true,
     }),
+    NgbModule,
   ],
   providers: [
     // {
