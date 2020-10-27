@@ -1,3 +1,4 @@
+import { LoaderInterceptorServiceInterceptor } from './_interceptor/loader-interceptor-service.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +35,9 @@ import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboa
 import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/dashboard-messages/dashboard-messages.component';
 import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-trainer/dashboard-certifications/dashboard-certifications.component';
 import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer-account/dashboard-trainer-account.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 // 2. Add your credentials from step 1
 
 @NgModule({
@@ -62,7 +66,9 @@ import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-tr
   imports: [
     RatingModule.forRoot(),
     BrowserModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
+    RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.config),
     AngularFirestoreModule,
@@ -79,7 +85,13 @@ import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-tr
       progressBar: true,
     }),
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: LoaderInterceptorServiceInterceptor,
+    //   multi: true,
+    // },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

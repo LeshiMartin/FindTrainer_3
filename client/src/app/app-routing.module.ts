@@ -1,3 +1,4 @@
+import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import {
   _trainers_route,
@@ -8,6 +9,8 @@ import {
   _dashboardStats_route,
   _landing_route,
   _editAccount,
+  _mainUser,
+  _maintrainer,
 } from './_data/_route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -20,6 +23,7 @@ import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-tr
 import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-trainer/dashboard-certifications/dashboard-certifications.component';
 import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/dashboard-messages/dashboard-messages.component';
 import { DashboardStatsComponent } from './pages/dashboard/dashboard-trainer/dashboard-stats/dashboard-stats.component';
+import { DashboardTrainerComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer.component';
 
 const routes: Routes = [
   { path: _login_route, component: LoginComponent },
@@ -29,27 +33,28 @@ const routes: Routes = [
   { path: _landing_route, component: LandingComponent },
   //=============================== These routes below can only be access by user
   {
-    path: _editAccount,
-    component: DashboardUserAccountComponent,
+    path: _mainUser,
+    component: DashboardUserComponent,
+    children: [
+      { path: '', redirectTo: _editAccount, pathMatch: 'full' },
+      { path: _editAccount, component: DashboardUserAccountComponent },
+    ],
   },
   //=============================== These routes above can only be access by user
   //=============================== These routes below can only be access by trainer
   {
-    path: _editAccount,
-    component: DashboardTrainerAccountComponent,
-  },
-  {
-    path: _editCertification_route,
-    component: DashboardCertificationsComponent,
-  },
-  {
-    path: _myMessages_route,
-    component: DashboardMessagesComponent,
-  },
-
-  {
-    path: _dashboardStats_route,
-    component: DashboardStatsComponent,
+    path: _maintrainer,
+    component: DashboardTrainerComponent,
+    children: [
+      { path: '', redirectTo: _dashboardStats_route, pathMatch: 'full' },
+      { path: _dashboardStats_route, component: DashboardStatsComponent },
+      {
+        path: _editCertification_route,
+        component: DashboardCertificationsComponent,
+      },
+      { path: _myMessages_route, component: DashboardMessagesComponent },
+      { path: _editAccount, component: DashboardTrainerAccountComponent },
+    ],
   },
   //=============================== These routes above can only be access by trainer
 ];

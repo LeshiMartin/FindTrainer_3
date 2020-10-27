@@ -27,18 +27,18 @@ export class AuthService {
     return this.afAuth.authState;
   }
   checkIfRole(role: Role) {
-    return this.afAuth.authState
-      .pipe(
-        map(async (res) => {
-          if (res) {
-            const roleName = role === Role.trainer ? _isTrainer : _isUser;
-            const token = await res.getIdTokenResult();
-            return !!token.claims[roleName];
-          }
-          return false;
-        })
-      )
-      .toPromise();
+    return this.afAuth.authState.pipe(
+      map(async (res) => {
+        if (res) {
+          console.log('res', res);
+          const roleName = role === Role.trainer ? _isTrainer : _isUser;
+          const token = await res.getIdTokenResult();
+          console.log('token.claims', token.claims);
+          return !!token.claims[roleName];
+        }
+        return false;
+      })
+    );
   }
   findRole() {
     return this.afAuth.authState

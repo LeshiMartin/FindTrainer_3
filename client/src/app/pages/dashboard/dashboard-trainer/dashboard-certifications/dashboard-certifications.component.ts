@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AddCertificationDTO,
-  AllCertificationsDTO,
-} from '../../../_model/_Dto/CertificationDTO';
 // import {AllCertificationsDTO} from '../../../_model/_Dto/CertificationDTO';
 import { _organization } from 'src/app/_data/_organizations';
-import { _editCertification_route } from '../../../_data/_route';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {
+  AddCertificationDTO,
+  AllCertificationsDTO,
+} from 'src/app/_model/_Dto/CertificationDTO';
 
 @Component({
   selector: 'app-dashboard-certifications',
