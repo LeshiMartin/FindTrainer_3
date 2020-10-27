@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  developerForm: FormGroup;
+  signUpForm: FormGroup;
   initData: SignUpDTO = {
     email: 'sdasdasdas@gmail.com',
     password: 'Password123@',
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
   readonly emailOnly = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   ngOnInit(): void {
-    this.developerForm = this.fb.group({
+    this.signUpForm = this.fb.group({
       role: [this.initData.role, [Validators.required]],
       name: [this.initData.name, [Validators.required]],
       gender: [this.initData.gender, [Validators.required]],
@@ -51,7 +51,8 @@ export class SignupComponent implements OnInit {
   }
 
   submitFunc(): void {
-    const form = this.developerForm.value;
+    const form = this.signUpForm.value;
+    console.log('form', form);
     this.authService
       .signUp(form)
       .then(() => {

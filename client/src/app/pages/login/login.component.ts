@@ -20,7 +20,7 @@ export class LoginComponent {
   isLoading: boolean = false;
   readonly emailOnly = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-  developerForm = this.fb.group({
+  loginForm = this.fb.group({
     email: [
       'sdasdasdas@gmail.com',
       [Validators.pattern(this.emailOnly), Validators.required],
@@ -29,7 +29,7 @@ export class LoginComponent {
   });
 
   submitFunc() {
-    const { email, password } = this.developerForm.value;
+    const { email, password } = this.loginForm.value;
     this.authService
       .signin(email, password)
       .then(() => {

@@ -3,34 +3,25 @@
     <div class="col">
       <form
         class="needs-validation"
-        [formGroup]="developerForm"
+        [formGroup]="signUpForm"
         (ngSubmit)="submitFunc()"
       >
-        <!-- Basic -->
+        <!-- Name -->
         <div class="mb-3">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            formControlName="name"
-            [ngClass]="{
-              'is-invalid':
-                developerForm.get('name').errors &&
-                developerForm.get('name').touched
-            }"
-          />
-          <div class="invalid-feedback">Please enter a valid Name</div>
+          <app-text-input
+            [formControl]="signUpForm.controls['name']"
+            [label]="'Full Name'"
+          ></app-text-input>
         </div>
-
+        <!-- Gender -->
         <div class="mb-3">
           <label for="displayName">Gender</label>
           <select
             class="custom-select"
             [ngClass]="{
               'is-invalid':
-                developerForm.get('gender').errors &&
-                developerForm.get('gender').touched
+                signUpForm.get('gender').errors &&
+                signUpForm.get('gender').touched
             }"
             formControlName="gender"
           >
@@ -42,66 +33,21 @@
         </div>
         <!-- Email -->
         <div class="mb-3">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            class="form-control"
-            id="email"
-            formControlName="email"
-            [ngClass]="{
-              'is-invalid':
-                developerForm.get('email').errors &&
-                developerForm.get('email').touched
-            }"
-          />
-          <div class="invalid-feedback">
-            Please enter a valid email address.
-          </div>
+          <app-text-input
+            [formControl]="signUpForm.controls['email']"
+            [label]="'Email'"
+            [type]="'email'"
+          ></app-text-input>
         </div>
         <!-- Password -->
         <div class="mb-3">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            formControlName="password"
-            [ngClass]="{
-              'is-invalid':
-                developerForm.get('password').errors &&
-                developerForm.get('password').touched
-            }"
-          />
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              developerForm.get('password').hasError('required') &&
-              developerForm.get('password').touched
-            "
-          >
-            Password is required
-          </div>
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              developerForm.get('password').hasError('minlength') &&
-              developerForm.get('password').touched
-            "
-          >
-            Password must be at least 8 characters
-          </div>
-          <div
-            class="invalid-feedback"
-            *ngIf="
-              developerForm.get('password').hasError('maxlength') &&
-              developerForm.get('password').touched
-            "
-          >
-            Password cannot exceed 15 characters
-          </div>
-          <!-- Error Messages -->
+          <app-text-input
+            [formControl]="signUpForm.controls['password']"
+            [label]="'Password'"
+            [type]="'password'"
+          ></app-text-input>
         </div>
+        <!-- Role -->
         <div class="radioButton mb-3">
           <label for="role">Role</label><br />
           <div class="form-check form-check-inline">
@@ -113,7 +59,9 @@
               formControlName="role"
               [value]="1"
             />
-            <label class="form-check-label" for="inlineRadio1">Trainer</label>
+            <label class="form-check-label" for="inlineRadio1"
+              >Certified Personal Trainer</label
+            >
           </div>
           <div class="form-check form-check-inline">
             <input
@@ -125,13 +73,15 @@
               formControlName="role"
               [value]="0"
             />
-            <label class="form-check-label" for="inlineRadio2">User</label>
+            <label class="form-check-label" for="inlineRadio2"
+              >Looking for Trainer</label
+            >
           </div>
         </div>
         <hr class="mb-4" />
         <button
           class="btn btn-lg btn-block btn-warning"
-          [disabled]="!developerForm.valid"
+          [disabled]="!signUpForm.valid"
           type="submit"
         >
           Submit

@@ -38,6 +38,8 @@ import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-tr
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { TextInputComponent } from './_form/text-input/text-input.component';
+import { DateInputComponent } from './_form/date-input/date-input.component';
 // 2. Add your credentials from step 1
 
 @NgModule({
@@ -62,6 +64,8 @@ import { RouterModule } from '@angular/router';
     DashboardUserAccountComponent,
     DashboardTrainerComponent,
     DashboardUserComponent,
+    TextInputComponent,
+    DateInputComponent,
   ],
   imports: [
     RatingModule.forRoot(),
