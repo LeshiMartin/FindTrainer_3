@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/_services/user.service';
@@ -11,6 +11,8 @@ import { UserService } from 'src/app/_services/user.service';
 export class UploadImageComponent {
   @ViewChild('myInput')
   myInputVariable: ElementRef;
+  @Input()
+  label: string;
 
   fileToUpload: File;
 

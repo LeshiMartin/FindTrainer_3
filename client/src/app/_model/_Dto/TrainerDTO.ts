@@ -9,6 +9,8 @@ export class UpdateProfileDTO {
   province: string;
   country: string;
   fullAddress: string;
+  onlineTraining: boolean;
+  //Basic
 }
 export class AllTrainersDTO implements ITrainer {
   uid: string;
