@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateTrainerAccountDTO } from 'src/app/_model/_Dto/SettingDTO';
+import { AuthService } from 'src/app/_services/auth.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-dashboard-trainer-account',
@@ -8,15 +11,53 @@ import { FormGroup } from '@angular/forms';
 })
 export class DashboardTrainerAccountComponent implements OnInit {
   AccountForm: FormGroup;
-  // initData: SignUpDTO = {
-  //   email: 'sdasdasdas@gmail.com',
-  //   password: 'Password123@',
-  //   role: 1,
-  //   gender: 1,
-  //   name: 'Eric',
-  //   profileUrl: null,
-  // };
-  constructor() {}
+  initData: UpdateTrainerAccountDTO = {
+    focus: [],
+    city: '',
+    province: '',
+    country: '',
+    fullAddress: '',
+    onlineTraining: true,
+  };
+  constructor(
+    private userS: UserService,
+    private authS: AuthService,
+    private fb: FormBuilder
+  ) {
+    this.getTrainerProfile();
+  }
+  ngOnInit(): void {
+    this.AccountForm = this.fb.group({
+      name: [this.initData.name, [Validators.required]],
+      gender: [this.initData.gender, [Validators.required]],
+      email: [
+        this.initData.email,
+        [Validators.pattern(this.emailOnly), Validators.required],
+      ],
+      password: [
+        this.initData.password,
+        [
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.minLength(8),
+        ],
+      ],
+    });
+  }
 
-  ngOnInit(): void {}
+  getTrainerProfile() {
+    this.authS.checkIfLogin().subscribe((res) => {
+      if (res) {
+        const { uid } = res;
+        this.userS
+          .getSingleUser(uid)
+          .subscribe((res2: UpdateTrainerAccountDTO) => {
+            if (res2) {
+              this.initData = res2;
+              console.log('this.initData', this.initData);
+            }
+          });
+      }
+    });
+  }
 }

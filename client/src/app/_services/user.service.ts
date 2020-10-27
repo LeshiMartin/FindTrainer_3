@@ -8,8 +8,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { _collection_users } from '../_data/_collections';
+import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
-import { AllTrainersDTO } from '../_model/_Dto/TrainerDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,7 @@ import { AllTrainersDTO } from '../_model/_Dto/TrainerDTO';
 export class UserService {
   constructor(private afStore: AngularFirestore, private _http: HttpClient) {}
 
-  getAll(
-    filterParams: FilterParams
-  ): AngularFirestoreCollection<AllTrainersDTO> {
+  getAll(filterParams: FilterParams): AngularFirestoreCollection<TrainerDTO> {
     return this.afStore.collection(
       _collection_users,
       (ref: CollectionReference) => {
@@ -59,7 +57,7 @@ export class UserService {
   }
   getSingleUser(id: string) {
     return this.afStore
-      .collection('users')
+      .collection(_collection_users)
       .doc(id)
       .get()
       .pipe(
@@ -70,10 +68,15 @@ export class UserService {
   }
   uploadImage(vals): Observable<any> {
     let data = vals;
-
     return this._http.post(
       'https://api.cloudinary.com/v1_1/codexmaker/image/upload',
       data
     );
+  }
+  EditUser(data: TrainerDTO) {
+    return this.afStore
+      .collection(_collection_users)
+      .doc(data.uid)
+      .set(data, { merge: true });
   }
 }

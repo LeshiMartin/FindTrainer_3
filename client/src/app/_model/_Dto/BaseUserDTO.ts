@@ -2,22 +2,19 @@ import { Gender } from '../_Enum/Gender';
 import { Role } from '../_Enum/Role';
 import { ITrainer } from '../_Interface/ITrainer';
 import { IBaseUser } from './../_Interface/IBaseUser';
-interface IAuth {
+
+export class SignInDTO {
   email: string;
   password: string;
 }
-export class SignInDTO implements IAuth {
-  email: string;
-  password: string;
-}
-export class SignUpDTO extends SignInDTO implements IBaseUser {
+export class BaseUserDTO implements IBaseUser {
   role: Role = Role.user;
   gender: Gender;
   name: string;
   profileUrl: string;
 }
 
-export class SignUpTrainerDTO implements ITrainer {
+export class TrainerDTO implements ITrainer {
   uid: string;
   role: Role = Role.trainer;
   gender: Gender;

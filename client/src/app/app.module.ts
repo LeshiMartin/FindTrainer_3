@@ -42,6 +42,8 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 // 2. Add your credentials from step 1
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateBaseUserComponent } from './components/update-base-user/update-base-user.component';
+import { UpdateTrainerComponent } from './components/update-trainer/update-trainer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TextInputComponent,
     DateInputComponent,
     UploadImageComponent,
+    UpdateBaseUserComponent,
+    UpdateTrainerComponent,
   ],
   imports: [
     HttpClientModule,
