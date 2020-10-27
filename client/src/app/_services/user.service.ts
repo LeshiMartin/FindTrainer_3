@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
@@ -5,6 +6,7 @@ import {
   AngularFirestoreDocument,
   CollectionReference,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { _users } from '../_data/_collections';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
@@ -14,7 +16,7 @@ import { AllTrainersDTO } from '../_model/_Dto/TrainerDTO';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private afStore: AngularFirestore) {}
+  constructor(private afStore: AngularFirestore, private _http: HttpClient) {}
 
   getAll(
     filterParams: FilterParams
@@ -63,5 +65,13 @@ export class UserService {
           return { ...res.data(), uid: id };
         })
       );
+  }
+  uploadImage(vals): Observable<any> {
+    let data = vals;
+
+    return this._http.post(
+      'https://api.cloudinary.com/v1_1/codexmaker/image/upload',
+      data
+    );
   }
 }

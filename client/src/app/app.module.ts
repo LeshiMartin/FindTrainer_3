@@ -40,7 +40,7 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 // 2. Add your credentials from step 1
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +67,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
     UploadImageComponent,
   ],
   imports: [
+    HttpClientModule,
     RatingModule.forRoot(),
     BrowserModule,
     NgxSpinnerModule,

@@ -14,6 +14,11 @@ export const environment = {
     appId: '1:502571684674:web:80faf02ca66609cf8d2edb',
     measurementId: 'G-QNZPTJL52F',
   },
+  Cloudinary: {
+    CloudName: 'save',
+    ApiKey: '254519369684428',
+    ApiSecret: 'Oi6YI_j6-AlqlUXZBLwCsJUEU_s',
+  },
 };
 
 /*

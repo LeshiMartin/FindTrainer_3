@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-upload-image',
@@ -20,6 +22,7 @@ export class UploadImageComponent {
     this.imageChangedEvent = event;
     this.imageExists = true;
   }
+
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
     //convert for upload
@@ -28,19 +31,31 @@ export class UploadImageComponent {
       type: fileBeforeCrop.type,
     });
   }
+
+  constructor(
+    private _userService: UserService,
+    private toastR: ToastrService
+  ) {}
+  done() {
+    //Upload my image to cloudinary
+    const file_data = this.fileToUpload;
+    const data = new FormData();
+    data.append('file', file_data);
+    data.append('upload_preset', 'angular_cloudinary');
+    data.append('cloud_name', 'codexmaker');
+    this._userService.uploadImage(data).subscribe((response) => {
+      if (response) {
+        console.log(response.url);
+      }
+    });
+  }
   reset() {
     this.imageChangedEvent = null;
     this.croppedImage = null;
     this.imageExists = false;
     this.myInputVariable.nativeElement.value = '';
   }
-  imageLoaded() {
-    // show cropper
-  }
-  cropperReady() {
-    // cropper ready
-  }
   loadImageFailed() {
-    // show message
+    this.toastR.error('Wrong file type, please use a valid image');
   }
 }
