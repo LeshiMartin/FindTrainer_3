@@ -6,17 +6,15 @@ interface IAuth {
   email: string;
   password: string;
 }
-export class SignUpDTO implements IBaseUser, IAuth {
-  email: string;
-  password: string;
-  role: Role;
-  gender: Gender;
-  name: string;
-  profileUrl: string;
-}
 export class SignInDTO implements IAuth {
   email: string;
   password: string;
+}
+export class SignUpDTO extends SignInDTO implements IBaseUser {
+  role: Role = Role.user;
+  gender: Gender;
+  name: string;
+  profileUrl: string;
 }
 
 export class SignUpTrainerDTO implements ITrainer {
@@ -34,8 +32,8 @@ export class SignUpTrainerDTO implements ITrainer {
   country: string;
   fullAddress: string;
   //Extra
-  avgRatingScore: number;
-  totalRatings: number;
+  avgRatingScore: number = 0;
+  totalRatings: number = 0;
   onlineTraining: boolean = true;
   constructor(
     uid: string,
@@ -48,13 +46,10 @@ export class SignUpTrainerDTO implements ITrainer {
     this.gender = gender;
     this.name = name;
     this.profileUrl = profileUrl;
-    this.focus = [];
     this.city = null;
     this.province = null;
     this.country = null;
     this.fullAddress = null;
-    this.avgRatingScore = 0;
-    this.totalRatings = 0;
     this.role = role;
   }
 }

@@ -1,22 +1,22 @@
 import { Role } from '../_model/_Enum/Role';
 import {
   _dashboardStats_route,
-  _editAccount,
+  _editAccount_route,
   _editCertification_route,
-  _maintrainer,
-  _mainUser,
+  _maintrainer_route,
+  _mainUser_route,
   _myMessages_route,
 } from './_route';
 function properURL(role: Role, url: string) {
   return role === Role.trainer
-    ? _maintrainer + '/' + url
-    : _mainUser + '/' + url;
+    ? _maintrainer_route + '/' + url
+    : _mainUser_route + '/' + url;
 }
 export const _UserSideboard = [
   {
     name: 'Account',
     icon: 'fas fa-user-circle',
-    route: properURL(Role.user, _editAccount),
+    route: properURL(Role.user, _editAccount_route),
   },
 ];
 export const _TrainerSideBoard = [
@@ -28,7 +28,7 @@ export const _TrainerSideBoard = [
   {
     name: 'Account',
     icon: 'fas fa-user-circle',
-    route: properURL(Role.trainer, _editAccount),
+    route: properURL(Role.trainer, _editAccount_route),
   },
   {
     name: 'Certifications',

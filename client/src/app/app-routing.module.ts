@@ -8,9 +8,9 @@ import {
   _myMessages_route,
   _dashboardStats_route,
   _landing_route,
-  _editAccount,
-  _mainUser,
-  _maintrainer,
+  _editAccount_route,
+  _mainUser_route,
+  _maintrainer_route,
 } from './_data/_route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -33,17 +33,17 @@ const routes: Routes = [
   { path: _landing_route, component: LandingComponent },
   //=============================== These routes below can only be access by user
   {
-    path: _mainUser,
+    path: _mainUser_route,
     component: DashboardUserComponent,
     children: [
-      { path: '', redirectTo: _editAccount, pathMatch: 'full' },
-      { path: _editAccount, component: DashboardUserAccountComponent },
+      { path: '', redirectTo: _editAccount_route, pathMatch: 'full' },
+      { path: _editAccount_route, component: DashboardUserAccountComponent },
     ],
   },
   //=============================== These routes above can only be access by user
   //=============================== These routes below can only be access by trainer
   {
-    path: _maintrainer,
+    path: _maintrainer_route,
     component: DashboardTrainerComponent,
     children: [
       { path: '', redirectTo: _dashboardStats_route, pathMatch: 'full' },
@@ -53,7 +53,7 @@ const routes: Routes = [
         component: DashboardCertificationsComponent,
       },
       { path: _myMessages_route, component: DashboardMessagesComponent },
-      { path: _editAccount, component: DashboardTrainerAccountComponent },
+      { path: _editAccount_route, component: DashboardTrainerAccountComponent },
     ],
   },
   //=============================== These routes above can only be access by trainer
@@ -72,7 +72,7 @@ export class AppRoutingModule {}
 //   canActivate: [AuthGuard],
 //   children: [
 //     {
-//       path: _editAccount_route, //this route can be access both trainer and users
+//       path: _editAccount_route_route, //this route can be access both trainer and users
 //       component: DashboardAccountsComponent,
 //     },
 //     //=============================== These routes below can only be access by trainer

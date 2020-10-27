@@ -2,16 +2,6 @@ import { ITrainer } from './../_Interface/ITrainer';
 import { Gender } from '../_Enum/Gender';
 import { Role } from '../_Enum/Role';
 
-export class UpdateProfileDTO {
-  focus: string[]; // ex. Bodybuilding, weight loss and etc.
-  //address
-  city: string;
-  province: string;
-  country: string;
-  fullAddress: string;
-  onlineTraining: boolean;
-  //Basic
-}
 export class AllTrainersDTO implements ITrainer {
   uid: string;
   role: Role = Role.trainer;
