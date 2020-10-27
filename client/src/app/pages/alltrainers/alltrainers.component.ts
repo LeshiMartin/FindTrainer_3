@@ -46,7 +46,6 @@ export class AlltrainersComponent {
         },
         (err) => {
           console.log('err', err);
-          this.onResetComplete();
           this.toastr.error(
             'Sorry! We are unable to fetch the data at this time, please come back later!'
           );

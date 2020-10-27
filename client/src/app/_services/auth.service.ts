@@ -65,7 +65,6 @@ export class AuthService {
     signupData: SignUpDTO,
     role: Role
   ): Promise<void> {
-    delete signupData.role;
     signupData.profileUrl = null;
 
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);

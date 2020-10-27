@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
     const form = this.developerForm.value;
     this.authService
       .signUp(form)
-      .then((res) => {
+      .then(() => {
         this.router.navigate([_landing_route]);
       })
       .catch((error) => {

@@ -12,7 +12,7 @@ export class UpdateProfileDTO {
 }
 export class AllTrainersDTO implements ITrainer {
   uid: string;
-
+  role: Role = Role.trainer;
   gender: Gender;
   name: string;
   profileUrl: string;

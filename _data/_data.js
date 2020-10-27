@@ -1,4 +1,4 @@
-const { names, focus, address, organization } = require("./_data_template");
+const { names, focus, address } = require("./_data_template");
 
 const randomNumber = (min, max) => {
   return Math.floor(Math.random() * max) + min;
@@ -16,6 +16,7 @@ exports.randomUsers = () => {
       name,
       profileUrl: "https://ibb.co/wQcgHv4",
       gender: 1,
+      role: 0,
     };
   });
 };
@@ -30,6 +31,7 @@ exports.randomTrainers = () => {
     return {
       name,
       gender: 1,
+      role: 1,
       focus: generate2Focus(),
       created: Date.now(),
       ...address[randomNumber(0, address.length - 1)],
