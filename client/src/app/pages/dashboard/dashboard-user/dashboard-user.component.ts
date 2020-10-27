@@ -25,11 +25,10 @@ export class DashboardUserComponent {
         const data = await res;
         if (data) {
           this.SideboardContent = _UserSideboard;
-          this.spinner.hide();
         } else {
           this.router.navigate([_login_route]);
-          this.spinner.hide();
         }
+        this.spinner.hide();
       },
       () => {
         this.router.navigate([_login_route]);
