@@ -1,4 +1,3 @@
-import { LoaderInterceptorServiceInterceptor } from './_interceptor/loader-interceptor-service.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +13,6 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SingletrainerComponent } from './pages/singletrainer/singletrainer.component';
 import { AlltrainersComponent } from './pages/alltrainers/alltrainers.component';
-import { AccountComponent } from './pages/account/account.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { FormsModule } from '@angular/forms';
 // 1. Import the libs you need
@@ -36,10 +34,11 @@ import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/
 import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-trainer/dashboard-certifications/dashboard-certifications.component';
 import { DashboardTrainerAccountComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer-account/dashboard-trainer-account.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './_form/text-input/text-input.component';
 import { DateInputComponent } from './_form/date-input/date-input.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 // 2. Add your credentials from step 1
 
 @NgModule({
@@ -50,7 +49,6 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
     NavbarComponent,
     SingletrainerComponent,
     AlltrainersComponent,
-    AccountComponent,
     LandingComponent,
     TrainerItemComponent,
     RatingComponent,
@@ -66,6 +64,7 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
     DashboardUserComponent,
     TextInputComponent,
     DateInputComponent,
+    UploadImageComponent,
   ],
   imports: [
     RatingModule.forRoot(),
@@ -80,6 +79,7 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     CommonModule,
+    ImageCropperModule,
     FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
