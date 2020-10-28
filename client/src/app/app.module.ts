@@ -46,6 +46,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateBaseUserComponent } from './components/update-base-user/update-base-user.component';
 import { UpdateTrainerComponent } from './components/update-trainer/update-trainer.component';
 import { MultiselectComponent } from './_form/multiselect/multiselect.component';
+import { UpdateProfileImageComponent } from './components/update-profile-image/update-profile-image.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ import { MultiselectComponent } from './_form/multiselect/multiselect.component'
     UpdateBaseUserComponent,
     UpdateTrainerComponent,
     MultiselectComponent,
+    UpdateProfileImageComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule.forRoot(),
@@ -80,7 +82,7 @@ import { MultiselectComponent } from './_form/multiselect/multiselect.component'
     RatingModule.forRoot(),
     BrowserModule,
     NgxSpinnerModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.config),

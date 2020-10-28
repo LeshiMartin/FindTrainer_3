@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.css'],
 })
-export class MultiselectComponent implements OnInit {
+export class MultiselectComponent {
   myForm: FormGroup;
   @Input() dataArr: string[];
   @Input() existedArr: string[];
@@ -19,7 +19,7 @@ export class MultiselectComponent implements OnInit {
   disabled = false;
   ShowFilter = false;
   limitSelection = false;
-  selectedItems: any[] = [];
+  selectedItems: any[];
   dropdownSettings: any = {
     singleSelection: false,
     idField: 'item_id',
@@ -32,10 +32,10 @@ export class MultiselectComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder) {}
-  ngOnInit() {
+  ngOnChanges(): void {
     this.allData = this.transformData(this.dataArr);
     this.dropdownSettings.limitSelection = this.limit;
-
+    this.selectedItems = this.transformData(this.existedArr);
     this.myForm = this.fb.group({
       [this.label]: [...this.transformData(this.existedArr)],
     });

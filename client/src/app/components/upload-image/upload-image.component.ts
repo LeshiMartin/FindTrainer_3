@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/_services/user.service';
@@ -38,16 +45,18 @@ export class UploadImageComponent {
     private _userService: UserService,
     private toastR: ToastrService
   ) {}
+  @Output() urlSubmit = new EventEmitter();
   done() {
     //Upload my image to cloudinary
     const file_data = this.fileToUpload;
     const data = new FormData();
     data.append('file', file_data);
     data.append('upload_preset', 'angular_cloudinary');
-    data.append('cloud_name', 'codexmaker');
+    data.append('cloud_name', 'save');
     this._userService.uploadImage(data).subscribe((response) => {
       if (response) {
-        console.log(response.url);
+        console.log('response.url', response.url);
+        this.urlSubmit.emit(response.url);
       }
     });
   }

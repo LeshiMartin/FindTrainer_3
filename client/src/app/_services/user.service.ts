@@ -5,17 +5,24 @@ import {
   AngularFirestoreCollection,
   CollectionReference,
 } from '@angular/fire/firestore';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { _collection_users } from '../_data/_collections';
 import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private afStore: AngularFirestore, private _http: HttpClient) {}
+  constructor(
+    private AuthS: AuthService,
+    private afStore: AngularFirestore,
+    private _http: HttpClient,
+    private toastR: ToastrService
+  ) {}
 
   getAll(filterParams: FilterParams): AngularFirestoreCollection<TrainerDTO> {
     return this.afStore.collection(
@@ -78,5 +85,15 @@ export class UserService {
       .collection(_collection_users)
       .doc(data.uid)
       .set(data, { merge: true });
+  }
+  getCurrentUser() {
+    return this.AuthS.checkIfLogin().pipe(
+      switchMap((res) => {
+        if (res) {
+          return this.getSingleUser(res.uid);
+        }
+        return null;
+      })
+    );
   }
 }

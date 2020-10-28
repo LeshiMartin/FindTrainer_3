@@ -38,6 +38,7 @@ export class AuthService {
       })
     );
   }
+
   findRole() {
     return this.afAuth.authState
       .pipe(

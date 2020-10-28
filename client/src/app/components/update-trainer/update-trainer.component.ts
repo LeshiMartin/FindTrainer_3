@@ -11,32 +11,34 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: './update-trainer.component.html',
   styleUrls: ['./update-trainer.component.css'],
 })
-export class UpdateTrainerComponent implements OnInit {
+export class UpdateTrainerComponent {
   @Input() fullData: TrainerDTO;
   TrainerFormAccount: FormGroup;
   dataArr = _focus;
   initData: UpdateTrainerAccountDTO = {
     focus: [],
-    city: 'Van',
-    province: 'asdas',
-    country: 'asdasd',
-    fullAddress: 'asdasdas',
+    city: '',
+    province: '',
+    country: '',
+    fullAddress: '',
     onlineTraining: true,
   };
 
   constructor(
-    private userService: UserService,
     private fb: FormBuilder,
-    private toastr: ToastrService
-  ) {
+    private userService: UserService,
+    private toastS: ToastrService
+  ) {}
+  ngOnChanges(): void {
     this.dataTransferInit();
+    this.initForm();
   }
   dataTransferInit() {
     if (this.fullData) {
-      Object.assign(this.fullData, this.initData);
+      Object.assign(this.initData, this.fullData);
     }
   }
-  ngOnInit(): void {
+  initForm() {
     this.TrainerFormAccount = this.fb.group({
       city: [this.initData.city, [Validators.required]],
       country: [this.initData.country, [Validators.required]],
@@ -61,15 +63,20 @@ export class UpdateTrainerComponent implements OnInit {
     });
   }
   submitFunc(): void {
-    const form = this.TrainerFormAccount.value;
-    const allData = { ...this.fullData, ...this.TrainerFormAccount.value };
-    console.log('allData', allData);
-
-    // this.userService
-    //   .EditUser(allData)
-    //   .then(() => {})
-    //   .catch((error) => {
-    //     this.toastr.error(error.message);
-    //   });
+    //Compare
+    const updatedData = { ...this.fullData, ...this.TrainerFormAccount.value };
+    const oldData = this.fullData;
+    if (JSON.stringify(oldData) === JSON.stringify(updatedData)) {
+      this.toastS.error('Please change the data before save, thanks!');
+    } else {
+      this.userService
+        .EditUser(updatedData)
+        .then(() => {
+          this.toastS.info('Account information is saved');
+        })
+        .catch((error) => {
+          this.toastS.error(error.message);
+        });
+    }
   }
 }
