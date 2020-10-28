@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CertificationDTO } from 'src/app/_model/_Dto/CertificationDTO';
+import { AuthService } from 'src/app/_services/auth.service';
+import { CertificationService } from 'src/app/_services/certification.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-certifications',
@@ -13,8 +16,9 @@ import { CertificationDTO } from 'src/app/_model/_Dto/CertificationDTO';
 })
 export class DashboardCertificationsComponent implements OnInit {
   allcertifications: CertificationDTO[] = [];
-  developerForm: FormGroup;
-  initData: CertificationDTO = {
+  certificationForm: FormGroup;
+  private TrainerId: string;
+  private initData: CertificationDTO = {
     description: 'Description',
     title: 'Title',
     created: new Date(Date.now()),
@@ -24,30 +28,24 @@ export class DashboardCertificationsComponent implements OnInit {
   };
 
   constructor(
-    // private addService: AddService,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private AuthS: AuthService,
+    private CertificationS: CertificationService
   ) {
-    this.getAllCertifications();
+    // this.getCertifications();
   }
-
-  private getAllCertifications() {
-    // this.addService
-    //   .getAll()
-    //   .stateChanges()
-    //   .subscribe((res) => {
-    //     this.allcertifications = res.map((data: any) => {
-    //       const doc = data.payload.doc;
-    //       const certificationData: CertificationDTO = doc.data();
-    //       //First & End
-    //       return certificationData;
-    //     });
-    //   });
+  getCertifications() {
+    this.CertificationS.getCurrentUserCerts().subscribe(
+      (res: CertificationDTO[]) => {
+        this.allcertifications = res;
+      }
+    );
   }
 
   ngOnInit(): void {
-    this.developerForm = this.fb.group({
+    this.certificationForm = this.fb.group({
       description: [this.initData.description, [Validators.required]],
       title: [this.initData.title, [Validators.required]],
       created: [this.initData.created, [Validators.required]],
@@ -56,25 +54,28 @@ export class DashboardCertificationsComponent implements OnInit {
       organization: [this.initData.organization, [Validators.required]],
     });
   }
+  addCertification() {
+    const form = this.certificationForm.value;
+  }
 
   organizations = _organization;
 
-  onSubmit(): void {
-    const form = this.developerForm.value;
+  // onSubmit(): void {
+  //   const form = this.developerForm.value;
 
-    // this.addService
-    //   .addCertification(form)
-    //   .then(() => {
-    //     this.router.navigate([_editCertification_route]);
-    //   })
-    //   .catch((error) => {
-    //     this.toastr.error(error.message);
-    //   });
-    this.getAllCertifications();
-  }
+  //   // this.addService
+  //   //   .addCertification(form)
+  //   //   .then(() => {
+  //   //     this.router.navigate([_editCertification_route]);
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     this.toastr.error(error.message);
+  //   //   });
+  //   this.getAllCertifications();
+  // }
 
-  onDelete(item: CertificationDTO): void {
-    // this.addService.delete(item);
-    this.getAllCertifications();
-  }
+  // onDelete(item: CertificationDTO): void {
+  //   // this.addService.delete(item);
+  //   this.getAllCertifications();
+  // }
 }

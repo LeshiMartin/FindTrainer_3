@@ -9,7 +9,7 @@
     "gi": "ng g i _model/Photo --skip-tests --flat ",
     "gint": "ng generate interceptor _interceptor/LoaderInterceptorService",
     "ccc": "ng g c components/UpdateProfileImage",
-    "cs": "ng g s _services/auth ",
+    "cs": "ng g s _services/genericsService ",
     "cm": "ng g m app-routing --flat --module=app",
     "cg": "ng g guard _guard/AuthTrainer",
     "cp": "ng g pipe _pipe/truncatePipe --skip-tests --flat ",
