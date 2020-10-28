@@ -11,7 +11,7 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: './update-base-user.component.html',
   styleUrls: ['./update-base-user.component.css'],
 })
-export class UpdateBaseUserComponent implements OnInit {
+export class UpdateBaseUserComponent {
   @Input() fullData: TrainerDTO | BaseUserDTO;
   AccountForm: FormGroup;
   initData: UpdateAccountDTO = {
@@ -23,13 +23,14 @@ export class UpdateBaseUserComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) {
-    this.dataTransferInit();
+  ) {}
+  ngOnChanges() {
+    this.initForm();
   }
-  dataTransferInit() {
-    Object.assign(this.fullData, this.initData);
-  }
-  ngOnInit(): void {
+  initForm() {
+    if (this.fullData) {
+      Object.assign(this.initData, this.fullData);
+    }
     this.AccountForm = this.fb.group({
       name: [this.initData.name, [Validators.required]],
       gender: [this.initData.gender, [Validators.required]],
@@ -37,16 +38,20 @@ export class UpdateBaseUserComponent implements OnInit {
   }
 
   submitFunc(): void {
-    const form = this.AccountForm.value;
-    console.log('form', form);
-    const allData = { ...this.fullData, ...this.AccountForm.value };
-    console.log('allData', allData);
-
-    this.userService
-      .EditUser(allData)
-      .then(() => {})
-      .catch((error) => {
-        this.toastr.error(error.message);
-      });
+    //Compare
+    const updatedData = { ...this.fullData, ...this.AccountForm.value };
+    const oldData = this.fullData;
+    if (JSON.stringify(oldData) === JSON.stringify(updatedData)) {
+      this.toastr.error('Please change the data before save, thanks!');
+    } else {
+      this.userService
+        .EditUser(updatedData)
+        .then(() => {
+          this.toastr.info('Account information is saved');
+        })
+        .catch((error) => {
+          this.toastr.error(error.message);
+        });
+    }
   }
 }
