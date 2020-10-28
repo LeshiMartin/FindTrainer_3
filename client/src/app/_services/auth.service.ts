@@ -1,6 +1,5 @@
 import { _login_route } from './../_data/_route';
 import { Role } from './../_model/_Enum/Role';
-import { SignupBaseToTrainer } from './../_methods/_autoMapper';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -9,10 +8,11 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
-import { SignUpDTO } from '../_model/_Dto/BaseUserDTO';
 import { map } from 'rxjs/operators';
 import { _isTrainer, _isUser } from '../_data/_customClaims';
 import { _addTrainer, _addUser } from '../_data/_functionNames';
+import { SignupDTO } from '../_model/_Dto/BaseUserDTO';
+import { SignupBaseToTrainer } from '../_methods/_autoMapper';
 @Injectable({
   providedIn: 'root',
 })
@@ -60,7 +60,7 @@ export class AuthService {
 
   private updateUserData(
     uid: string,
-    signupData: SignUpDTO,
+    signupData: SignupDTO,
     role: Role
   ): Promise<void> {
     signupData.profileUrl = null;
@@ -88,7 +88,7 @@ export class AuthService {
     return await this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  async signUp(signupData: SignUpDTO) {
+  async signUp(signupData: SignupDTO) {
     const data = await this.afAuth.createUserWithEmailAndPassword(
       signupData.email,
       signupData.password

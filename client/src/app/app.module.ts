@@ -40,10 +40,12 @@ import { DateInputComponent } from './_form/date-input/date-input.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 // 2. Add your credentials from step 1
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateBaseUserComponent } from './components/update-base-user/update-base-user.component';
 import { UpdateTrainerComponent } from './components/update-trainer/update-trainer.component';
+import { MultiselectComponent } from './_form/multiselect/multiselect.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +72,10 @@ import { UpdateTrainerComponent } from './components/update-trainer/update-train
     UploadImageComponent,
     UpdateBaseUserComponent,
     UpdateTrainerComponent,
+    MultiselectComponent,
   ],
   imports: [
+    NgMultiSelectDropDownModule.forRoot(),
     HttpClientModule,
     RatingModule.forRoot(),
     BrowserModule,

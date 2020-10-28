@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { _focus } from 'src/app/_data/_focus';
 import { _organization } from 'src/app/_data/_organizations';
+import { TrainerDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { FilterParams } from 'src/app/_model/_Dto/FilterParamsDTO';
-import { AllTrainersDTO } from 'src/app/_model/_Dto/TrainerDTO';
 import { UserService } from '../../_services/user.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { UserService } from '../../_services/user.service';
   styleUrls: ['./alltrainers.component.css'],
 })
 export class AlltrainersComponent {
-  trainers: AllTrainersDTO[] = [];
+  trainers: TrainerDTO[] = [];
   isSearched: boolean = false;
   isSinglePage: boolean = false;
   /////////////////////
@@ -30,7 +30,7 @@ export class AlltrainersComponent {
         (res) => {
           this.trainers = res.map((data: any, index: number) => {
             const doc = data.payload.doc;
-            const trainerData: AllTrainersDTO = doc.data();
+            const trainerData: TrainerDTO = doc.data();
             //First & End
             if (index === res.length - 1) {
               this.filterParams.LastItem = doc;

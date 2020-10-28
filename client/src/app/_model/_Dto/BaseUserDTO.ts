@@ -13,7 +13,10 @@ export class BaseUserDTO implements IBaseUser {
   name: string;
   profileUrl: string;
 }
-
+export class SignupDTO extends BaseUserDTO {
+  email: string;
+  password: string;
+}
 export class TrainerDTO implements ITrainer {
   uid: string;
   role: Role = Role.trainer;
@@ -48,5 +51,6 @@ export class TrainerDTO implements ITrainer {
     this.country = null;
     this.fullAddress = null;
     this.role = role;
+    this.focus = [];
   }
 }

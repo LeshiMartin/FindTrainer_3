@@ -49,7 +49,15 @@
     </select>
     <div class="invalid-feedback">Please enter a valid option</div>
   </div>
-
+  <!-- Focus -->
+  <app-multiselect
+    [dataArr]="dataArr"
+    [existedArr]="initData.focus"
+    [limit]="5"
+    [label]="'focus'"
+    (deselectFunction)="deselect($event)"
+    (selectFunction)="select($event)"
+  ></app-multiselect>
   <hr class="mb-4" />
   <button
     class="btn btn-lg btn-block btn-warning"

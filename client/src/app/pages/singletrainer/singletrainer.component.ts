@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AllTrainersDTO } from 'src/app/_model/_Dto/TrainerDTO';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { TrainerDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { UserService } from 'src/app/_services/user.service';
 @Component({
   selector: 'app-singletrainer',
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/_services/user.service';
   styleUrls: ['./singletrainer.component.scss'],
 })
 export class SingletrainerComponent implements OnInit {
-  currentTrainer: AllTrainersDTO = new AllTrainersDTO();
+  currentTrainer: TrainerDTO;
   constructor(
     private modalService: NgbModal,
     private router: ActivatedRoute,
@@ -24,7 +24,7 @@ export class SingletrainerComponent implements OnInit {
   ngOnInit(): void {}
 
   getTrainer(id: string) {
-    this.userService.getSingleUser(id).subscribe((res: AllTrainersDTO) => {
+    this.userService.getSingleUser(id).subscribe((res: TrainerDTO) => {
       this.currentTrainer = res;
     });
   }

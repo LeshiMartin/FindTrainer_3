@@ -3,7 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { _landing_route } from 'src/app/_data/_route';
-import { SignUpDTO } from 'src/app/_model/_Dto/BaseUserDTO';
+import {
+  BaseUserDTO,
+  SignInDTO,
+  SignupDTO,
+} from 'src/app/_model/_Dto/BaseUserDTO';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -13,7 +17,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
-  initData: SignUpDTO = {
+  initData: SignupDTO = {
     email: 'sdasdasdas@gmail.com',
     password: 'Password123@',
     role: 1,

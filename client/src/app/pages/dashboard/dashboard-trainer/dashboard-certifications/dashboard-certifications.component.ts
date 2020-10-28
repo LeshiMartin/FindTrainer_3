@@ -4,10 +4,7 @@ import { _organization } from 'src/app/_data/_organizations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {
-  AddCertificationDTO,
-  AllCertificationsDTO,
-} from 'src/app/_model/_Dto/CertificationDTO';
+import { CertificationDTO } from 'src/app/_model/_Dto/CertificationDTO';
 
 @Component({
   selector: 'app-dashboard-certifications',
@@ -15,9 +12,9 @@ import {
   styleUrls: ['./dashboard-certifications.component.css'],
 })
 export class DashboardCertificationsComponent implements OnInit {
-  allcertifications: AllCertificationsDTO[] = [];
+  allcertifications: CertificationDTO[] = [];
   developerForm: FormGroup;
-  initData: AddCertificationDTO = {
+  initData: CertificationDTO = {
     description: 'Description',
     title: 'Title',
     created: new Date(Date.now()),
@@ -42,7 +39,7 @@ export class DashboardCertificationsComponent implements OnInit {
     //   .subscribe((res) => {
     //     this.allcertifications = res.map((data: any) => {
     //       const doc = data.payload.doc;
-    //       const certificationData: AllCertificationsDTO = doc.data();
+    //       const certificationData: CertificationDTO = doc.data();
     //       //First & End
     //       return certificationData;
     //     });
@@ -76,7 +73,7 @@ export class DashboardCertificationsComponent implements OnInit {
     this.getAllCertifications();
   }
 
-  onDelete(item: AllCertificationsDTO): void {
+  onDelete(item: CertificationDTO): void {
     // this.addService.delete(item);
     this.getAllCertifications();
   }

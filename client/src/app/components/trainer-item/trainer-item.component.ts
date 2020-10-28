@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AllTrainersDTO } from 'src/app/_model/_Dto/TrainerDTO';
+import { TrainerDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 
 @Component({
   selector: 'app-trainer-item',
@@ -7,5 +7,5 @@ import { AllTrainersDTO } from 'src/app/_model/_Dto/TrainerDTO';
   styleUrls: ['./trainer-item.component.css'],
 })
 export class TrainerItemComponent {
-  @Input() currentTrainer: AllTrainersDTO;
+  @Input() currentTrainer: TrainerDTO;
 }
