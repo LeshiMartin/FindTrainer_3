@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { IOrganization, _organization } from 'src/app/_data/_organizations';
+import { AuthService } from 'src/app/_services/auth.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { _collection_certifications } from 'src/app/_data/_collections';
-import { _organization } from 'src/app/_data/_organizations';
 import { CertificationDTO } from 'src/app/_model/_Dto/CertificationDTO';
 import { CertificationService } from 'src/app/_services/certification.service';
 import { GenericsServiceService } from 'src/app/_services/generics-service.service';
@@ -13,55 +14,64 @@ import { GenericsServiceService } from 'src/app/_services/generics-service.servi
   styleUrls: ['./add-update-certifications.component.css'],
 })
 export class AddUpdateCertificationsComponent {
-  @Input() existedData: CertificationDTO = new CertificationDTO();
+  @Input() dataToEdit: CertificationDTO = new CertificationDTO();
   @Input() isAdd: boolean = true;
-  @Input() trainerId: string = '';
+  @Input() existedData: CertificationDTO[] = [];
 
+  @Output() updateItems = new EventEmitter();
+  listOrganizations: IOrganization[] = _organization;
   certificationForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private CertificationS: CertificationService,
     private GS: GenericsServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private AS: AuthService
   ) {
     this.initForm();
   }
 
   ngOnChange(): void {
-    if (this.existedData) {
+    if (this.dataToEdit) {
       this.initForm();
     }
   }
   private initForm() {
     this.certificationForm = this.fb.group({
-      title: [this.existedData.title, [Validators.required]],
-      created: [this.existedData.created, [Validators.required]],
+      title: [this.dataToEdit.title, [Validators.required]],
+      created: [this.dataToEdit.created, [Validators.required]],
       expired: [
-        this.existedData.expired,
-        this.existedData.neverExpire ? [] : [Validators.required],
+        this.dataToEdit.expired,
+        this.dataToEdit.neverExpire ? [] : [Validators.required],
       ],
-      organization: [this.existedData.organization, [Validators.required]],
-      neverExpire: [this.existedData.neverExpire, [Validators.required]],
+      organization: [this.dataToEdit.organization, [Validators.required]],
+      neverExpire: [this.dataToEdit.neverExpire, [Validators.required]],
     });
   }
   addCertification() {
-    console.log('this.trainerId', this.trainerId);
-    console.log('this.certificationForm.value', this.certificationForm.value);
-    console.log(
-      '{ trainerId: this.trainerId, ...this.certificationForm.value }',
-      { trainerId: this.trainerId, ...this.certificationForm.value }
+    this.AS.currentUser$.subscribe((uid) => {
+      const item = { trainerId: uid, ...this.certificationForm.value };
+      if (this.checkIfDuplicateExists(item)) {
+        this.toastr.error('Sorry! This is a duplicate certification');
+      } else {
+        this.GS.addDoc(item, _collection_certifications)
+          .then(() => {
+            this.updateItems.emit();
+            this.dataToEdit = new CertificationDTO();
+            this.initForm();
+            this.toastr.info('Certification is added');
+          })
+          .catch((err) => {
+            this.toastr.error(err);
+          });
+      }
+    });
+  }
+  checkIfDuplicateExists(item: CertificationDTO) {
+    return this.existedData.some(
+      (e) => e.title === item.title && e.organization === item.organization
     );
-    this.GS.addDoc(
-      { trainerId: this.trainerId, ...this.certificationForm.value },
-      _collection_certifications
-    )
-      .then(() => {
-        this.toastr.info('Certification is added');
-      })
-      .catch((err) => {
-        this.toastr.error(err);
-      });
   }
   editCertification() {
     console.log('this.certificationForm.value', this.certificationForm.value);

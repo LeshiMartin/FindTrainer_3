@@ -43,10 +43,24 @@
           </div>
           <!-- organization -->
           <div class="mb-3">
-            <app-text-input
-              [formControl]="certificationForm.controls['organization']"
-              [label]="'Organization'"
-            ></app-text-input>
+            <label>Organization</label>
+            <select
+              class="custom-select"
+              [ngClass]="{
+                'is-invalid':
+                  certificationForm.get('organization').errors &&
+                  certificationForm.get('organization').touched
+              }"
+              formControlName="organization"
+            >
+              <option disabled>Choose your organization</option>
+              <option
+                *ngFor="let item of listOrganizations"
+                [ngValue]="item.name"
+              >
+                {{ item.name }}
+              </option>
+            </select>
           </div>
           <!-- created -->
           <div class="mb-3">
@@ -55,10 +69,6 @@
               [formControl]="certificationForm.controls['created']"
             >
             </app-date-input>
-            <!-- <app-text-input
-              [formControl]="certificationForm.controls['created']"
-              [label]="'Issued Date'"
-            ></app-text-input> -->
           </div>
           <!-- Never Expire -->
           <div class="radioButton mb-3">

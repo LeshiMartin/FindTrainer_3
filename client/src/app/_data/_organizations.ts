@@ -55,3 +55,8 @@ export const _organization = [
     name: 'NFPT (National Federation of Professional Trainers)',
   },
 ];
+
+export interface IOrganization {
+  name: string;
+  imageUrl: string;
+}

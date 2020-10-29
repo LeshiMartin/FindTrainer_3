@@ -13,6 +13,7 @@ import { _isTrainer, _isUser } from '../_data/_customClaims';
 import { _addTrainer, _addUser } from '../_data/_functionNames';
 import { SignupDTO } from '../_model/_Dto/BaseUserDTO';
 import { SignupBaseToTrainer } from '../_methods/_autoMapper';
+import { ReplaySubject, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +24,8 @@ export class AuthService {
     private router: Router,
     private functions: AngularFireFunctions
   ) {}
+  private currentUserSource = new ReplaySubject<string>();
+  currentUser$ = this.currentUserSource.asObservable();
   checkIfLogin() {
     return this.afAuth.authState;
   }
@@ -30,6 +33,7 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       map(async (res) => {
         if (res) {
+          this.currentUserSource.next(res.uid);
           const roleName = role === Role.trainer ? _isTrainer : _isUser;
           const token = await res.getIdTokenResult();
           return !!token.claims[roleName];

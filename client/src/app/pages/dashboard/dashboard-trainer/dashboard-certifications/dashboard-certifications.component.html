@@ -7,8 +7,9 @@
       <div class="btn-group mr-2">
         <!-- Modal -->
         <app-add-update-certifications
-          [trainerId]="trainerId"
           [isAdd]="true"
+          (updateItems)="ChangeItems()"
+          [existedData]="allcertifications"
         ></app-add-update-certifications>
         <!-- Modal -->
       </div>
@@ -27,15 +28,16 @@
           </div>
           <div class="col-9">
             <h5 class="card-title">{{ item.title }}</h5>
-            <span>{{ item.organization }}</span>
-            <p class="card-text">
-              {{ item.created }} -
-              {{ item.neverExpire ? "Present" : item.expired }}
+            <span class="text-secondary">{{ item.organization }}</span>
+            <p class="card-text mt-2">
+              {{ item.created | date }} -
+              {{ item.neverExpire ? "Present" : (item.expired | date) }}
             </p>
           </div>
           <div class="col-1">
-            <button class="btn btn-warning">Button</button>
-            <button class="btn btn-danger mt-2">Button</button>
+            <button class="btn btn-danger mt-2" (click)="deleteItem(item.uid)">
+              Delete
+            </button>
           </div>
         </div>
       </div>
