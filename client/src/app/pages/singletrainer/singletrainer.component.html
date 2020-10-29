@@ -1,8 +1,8 @@
-<div class="card main">
+<div class="card main no-edge shadow">
   <div class="card-body">
     <div class="container">
       <!-- Header -->
-      <div class="row">
+      <div class="row default">
         <div class="col-4">
           <img
             [src]="
@@ -17,17 +17,61 @@
           />
         </div>
         <div class="col-8">
-          <h4>{{ currentTrainer?.name | titlecase }}</h4>
-          <span>
-            {{ currentTrainer }}
+          <h4 class="header">{{ currentTrainer?.name | titlecase }}</h4>
+          <span class="text-secondary">
+            <b>
+              {{ currentTrainer?.city }}, {{ currentTrainer?.province }}
+              {{ currentTrainer?.country }}</b
+            >
           </span>
+          <app-rating
+            [avgRating]="currentTrainer?.avgRatingScore"
+            [numberOfRatings]="currentTrainer?.totalRatings"
+          ></app-rating>
+          <ul class="list-inline">
+            <li
+              class="list-inline-item"
+              *ngFor="let item of currentTrainer?.focus"
+            >
+              <span class="badge badge-pill badge-light">{{ item }}</span>
+            </li>
+          </ul>
         </div>
       </div>
       <!-- Content -->
       <div class="row">
-        <div class="col">1 of 3</div>
-        <div class="col">2 of 3</div>
-        <div class="col">3 of 3</div>
+        <div
+          class="mt-2 alert alert-warning no-edge block text-center"
+          role="alert"
+        >
+          <b
+            >Want to train with {{ currentTrainer?.name | titlecase }}?
+            <button type="button" class="ml-2 btn btn-secondary">
+              Contact
+              {{ currentTrainer?.gender === 0 ? "her" : "him" }}
+            </button>
+          </b>
+        </div>
+      </div>
+      <div class="row default">
+        <div class="col-4">
+          <h5>Menu</h5>
+          <hr />
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let item of sideBarContent">
+                <a class="nav-link active" [routerLink]="'/' + item.route">
+                  <i [class]="item.icon"></i> {{ item.name }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="card default">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
       </div>
     </div>
   </div>

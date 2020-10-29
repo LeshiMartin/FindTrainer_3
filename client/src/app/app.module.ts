@@ -50,6 +50,8 @@ import { UpdateProfileImageComponent } from './components/update-profile-image/u
 import { AddUpdateCertificationsComponent } from './components/add-update-certifications/add-update-certifications.component';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MessageFormComponent } from './pages/message-form/message-form.component';
+import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MultiselectComponent,
     UpdateProfileImageComponent,
     AddUpdateCertificationsComponent,
+    MessageFormComponent,
+    DashboardCertificationsComponent,
+    DisplayReviewsComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),

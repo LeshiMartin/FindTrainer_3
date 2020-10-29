@@ -10,5 +10,7 @@ import {
 })
 export class DashboardSidebarComponent {
   @Input() SideboardList: any[] = [];
-  constructor() {}
+  constructor() {
+    console.log('any');
+  }
 }

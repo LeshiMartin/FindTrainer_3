@@ -11,6 +11,9 @@ import {
   _editAccount_route,
   _mainUser_route,
   _maintrainer_route,
+  _trainer_send_message,
+  _trainer_certification,
+  _trainer_reviews,
 } from './_data/_route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -24,13 +27,28 @@ import { DashboardCertificationsComponent } from './pages/dashboard/dashboard-tr
 import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/dashboard-messages/dashboard-messages.component';
 import { DashboardStatsComponent } from './pages/dashboard/dashboard-trainer/dashboard-stats/dashboard-stats.component';
 import { DashboardTrainerComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer.component';
+import { MessageFormComponent } from './pages/message-form/message-form.component';
+import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews.component';
+import { DisplayCertificationsComponent } from './pages/display-certifications/display-certifications.component';
 
 const routes: Routes = [
   { path: _login_route, component: LoginComponent },
   { path: _signup_route, component: SignupComponent },
   { path: _trainers_route, component: AlltrainersComponent },
-  { path: `${_trainers_route}/:id`, component: SingletrainerComponent },
   { path: _landing_route, component: LandingComponent },
+  {
+    path: `${_trainers_route}/:id`,
+    component: SingletrainerComponent,
+    children: [
+      { path: '', redirectTo: _trainer_send_message, pathMatch: 'full' },
+      { path: _trainer_send_message, component: MessageFormComponent },
+      {
+        path: _trainer_certification,
+        component: DisplayCertificationsComponent,
+      },
+      { path: _trainer_reviews, component: DisplayReviewsComponent },
+    ],
+  },
   //=============================== These routes below can only be access by user
   {
     path: _mainUser_route,
@@ -64,38 +82,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
-
-// {
-//   path: '',
-//   runGuardsAndResolvers: 'always',
-
-//   canActivate: [AuthGuard],
-//   children: [
-//     {
-//       path: _editAccount_route_route, //this route can be access both trainer and users
-//       component: DashboardAccountsComponent,
-//     },
-//     //=============================== These routes below can only be access by trainer
-//     {
-//       path: _editCertification_route,
-//       component: DashboardCertificationsComponent,
-//     },
-//     {
-//       path: _myMessages_route,
-//       component: DashboardMessagesComponent,
-//     },
-//     {
-//       path: _settings_route,
-//       component: DashboardSettingsComponent,
-//     },
-//     {
-//       path: _dashboardStats_route,
-//       component: DashboardStatsComponent,
-//     },
-//     {
-//       path: _dashboardHome_route,
-//       component: DashboardHomeComponent,
-//     },
-//     //=============================== These routes above can only be access by trainer
-//   ],
-// },
