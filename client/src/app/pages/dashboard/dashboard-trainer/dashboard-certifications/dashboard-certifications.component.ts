@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 // import {AllCertificationsDTO} from '../../../_model/_Dto/CertificationDTO';
 import { _organization } from 'src/app/_data/_organizations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { CertificationDTO } from 'src/app/_model/_Dto/CertificationDTO';
 import { CertificationService } from 'src/app/_services/certification.service';
 import { GenericsServiceService } from 'src/app/_services/generics-service.service';
@@ -13,20 +13,18 @@ import { GenericsServiceService } from 'src/app/_services/generics-service.servi
 })
 export class DashboardCertificationsComponent {
   allcertifications: CertificationDTO[] = [];
-
-  constructor(
-    private fb: FormBuilder,
-    private CertificationS: CertificationService,
-    private GS: GenericsServiceService
-  ) {
-    // this.getCertifications();
+  trainerId: string;
+  constructor(private CertificationS: CertificationService) {
+    this.getCertifications();
   }
   getCertifications() {
-    this.CertificationS.getCurrentUserCerts().subscribe(
-      (res: CertificationDTO[]) => {
-        this.allcertifications = res;
-      }
-    );
+    this.CertificationS.getCurrentUserCerts().subscribe((res: any) => {
+      const data: CertificationDTO[] = res.data;
+      const { trainerId } = res;
+      console.log('trainerId', trainerId);
+      this.trainerId = trainerId;
+      this.allcertifications = data;
+    });
   }
 
   organizations = _organization;

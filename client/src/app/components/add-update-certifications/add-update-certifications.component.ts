@@ -15,6 +15,8 @@ import { GenericsServiceService } from 'src/app/_services/generics-service.servi
 export class AddUpdateCertificationsComponent {
   @Input() existedData: CertificationDTO = new CertificationDTO();
   @Input() isAdd: boolean = true;
+  @Input() trainerId: string = '';
+
   certificationForm: FormGroup;
 
   constructor(
@@ -44,7 +46,16 @@ export class AddUpdateCertificationsComponent {
     });
   }
   addCertification() {
-    this.GS.addDoc(this.certificationForm.value, _collection_certifications)
+    console.log('this.trainerId', this.trainerId);
+    console.log('this.certificationForm.value', this.certificationForm.value);
+    console.log(
+      '{ trainerId: this.trainerId, ...this.certificationForm.value }',
+      { trainerId: this.trainerId, ...this.certificationForm.value }
+    );
+    this.GS.addDoc(
+      { trainerId: this.trainerId, ...this.certificationForm.value },
+      _collection_certifications
+    )
       .then(() => {
         this.toastr.info('Certification is added');
       })

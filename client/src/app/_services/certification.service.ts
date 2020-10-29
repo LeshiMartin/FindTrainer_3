@@ -22,7 +22,13 @@ export class CertificationService {
         return ref.where('trainerId', '==', trainerId);
       })
       .stateChanges()
-      .pipe(map((res) => res.map((e) => e.payload.doc.data())));
+      .pipe(
+        map((res) =>
+          res.map((e) => {
+            return { trainerId, data: e.payload.doc.data() };
+          })
+        )
+      );
   }
   getCurrentUserCerts() {
     return this.authService.checkIfLogin().pipe(
