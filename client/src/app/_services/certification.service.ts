@@ -1,21 +1,15 @@
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
-import { flatMap, map, switchMap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { _collection_certifications } from '../_data/_collections';
-import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
-import { CertificationDTO } from '../_model/_Dto/CertificationDTO';
 import { AuthService } from './auth.service';
-import { GenericsServiceService } from './generics-service.service';
-import { Query } from '@firebase/firestore-types';
 @Injectable({
   providedIn: 'root',
 })
 export class CertificationService {
   constructor(
     private afStore: AngularFirestore,
-    private authService: AuthService,
-    GenericsS: GenericsServiceService
+    private authService: AuthService
   ) {}
   private getAllCertificationsFromOneTrainer(trainerId: string) {
     return this.afStore

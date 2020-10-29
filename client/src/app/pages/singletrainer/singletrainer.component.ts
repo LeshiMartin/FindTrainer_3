@@ -24,9 +24,7 @@ export class SingletrainerComponent implements OnInit {
   ngOnInit(): void {}
 
   getTrainer(id: string) {
-    this.userService.getSingleUser(id).subscribe((res: TrainerDTO) => {
-      this.currentTrainer = res;
-    });
+    this.userService.getSingleUser(id).subscribe((res: TrainerDTO) => this.currentTrainer = res);
   }
   /////////////////////////////////////////////////////////////////////
   closeResult = '';
