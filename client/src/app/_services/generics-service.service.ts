@@ -12,4 +12,7 @@ export class GenericsServiceService {
   deleteDoc(uid: string, collectionName: string) {
     return this.afStore.collection(collectionName).doc(uid).delete();
   }
+  updateDoc(uid: string, collectionName: string, data: any) {
+    return this.afStore.collection(collectionName).doc(uid).set(data);
+  }
 }

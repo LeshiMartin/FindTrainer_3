@@ -47,6 +47,9 @@ import { UpdateBaseUserComponent } from './components/update-base-user/update-ba
 import { UpdateTrainerComponent } from './components/update-trainer/update-trainer.component';
 import { MultiselectComponent } from './_form/multiselect/multiselect.component';
 import { UpdateProfileImageComponent } from './components/update-profile-image/update-profile-image.component';
+import { AddUpdateCertificationsComponent } from './components/add-update-certifications/add-update-certifications.component';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,8 +78,10 @@ import { UpdateProfileImageComponent } from './components/update-profile-image/u
     UpdateTrainerComponent,
     MultiselectComponent,
     UpdateProfileImageComponent,
+    AddUpdateCertificationsComponent,
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     HttpClientModule,
     RatingModule.forRoot(),
