@@ -14,7 +14,7 @@ export class MessageService {
     private GS: GenericsServiceService,
     private toastr: ToastrService
   ) {}
-  SendMessage(message: MessageDTO) {
+  SendMessage(message: MessageDTO): void {
     this.AS.CurrentUser$.subscribe(
       async (res) => {
         if (!res.uid) {

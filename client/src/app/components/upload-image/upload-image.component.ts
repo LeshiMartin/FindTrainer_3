@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/_services/user.service';
+import { GenericsServiceService } from 'src/app/_services/generics-service.service';
 
 @Component({
   selector: 'app-upload-image',
@@ -42,8 +42,8 @@ export class UploadImageComponent {
   }
 
   constructor(
-    private _userService: UserService,
-    private toastR: ToastrService
+    private toastR: ToastrService,
+    private GS: GenericsServiceService
   ) {}
   @Output() urlSubmit = new EventEmitter();
   done() {
@@ -53,7 +53,7 @@ export class UploadImageComponent {
     data.append('file', file_data);
     data.append('upload_preset', 'angular_cloudinary');
     data.append('cloud_name', 'save');
-    this._userService.uploadImage(data).subscribe((response) => {
+    this.GS.uploadImage(data).subscribe((response) => {
       if (response) {
         console.log('response.url', response.url);
         this.urlSubmit.emit(response.url);

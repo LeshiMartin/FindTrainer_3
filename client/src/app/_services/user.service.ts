@@ -1,7 +1,6 @@
 import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
 import { AuthService } from 'src/app/_services/auth.service';
 import { BaseUserDTO } from './../_model/_Dto/BaseUserDTO';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
@@ -9,7 +8,7 @@ import {
   CollectionReference,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, flatMap, mergeMap } from 'rxjs/operators';
 import { _collection_users } from '../_data/_collections';
 import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
@@ -21,11 +20,7 @@ import { Role } from '../_model/_Enum/Role';
 export class UserService {
   private CurrentBrowseTrainer = new BehaviorSubject<string>(null);
   currentBrowseTrainer$ = this.CurrentBrowseTrainer.asObservable();
-  constructor(
-    private afStore: AngularFirestore,
-    private _http: HttpClient,
-    private AS: AuthService
-  ) {}
+  constructor(private afStore: AngularFirestore, private AS: AuthService) {}
 
   getAll(filterParams: FilterParams): AngularFirestoreCollection<TrainerDTO> {
     return this.afStore.collection(
@@ -91,11 +86,20 @@ export class UserService {
       })
     );
   }
-  uploadImage(vals: any): Observable<any> {
-    let data = vals;
-    return this._http.post(
-      'https://api.cloudinary.com/v1_1/codexmaker/image/upload',
-      data
+  getCurrentTrainerFull() {
+    return this.AS.getCurrentUser().pipe(
+      mergeMap(async (res: Promise<CurrentUserStoreDTO>) => {
+        const r = await res;
+        if (r) {
+          return r;
+        }
+        return null;
+      }),
+      mergeMap((res) => {
+        if (res) {
+          return this.getSingleTrainer(res.uid);
+        }
+      })
     );
   }
   EditUser(data: TrainerDTO): Promise<void> {

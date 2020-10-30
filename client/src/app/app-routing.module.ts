@@ -1,3 +1,4 @@
+import { WriteReviewComponent } from './pages/write-review/write-review.component';
 import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import {
@@ -15,6 +16,7 @@ import {
   _trainer_certification,
   _trainer_reviews,
   _notfound_route,
+  _trainer_write_review,
 } from './_data/_route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -48,6 +50,7 @@ const routes: Routes = [
         component: AllcertsComponent,
       },
       { path: _trainer_reviews, component: AllreviewsComponent },
+      { path: _trainer_write_review, component: WriteReviewComponent },
     ],
   },
   //=============================== These routes below can only be access by user

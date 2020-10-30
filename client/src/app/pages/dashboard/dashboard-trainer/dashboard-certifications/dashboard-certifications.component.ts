@@ -1,5 +1,4 @@
 import { _collection_certifications } from 'src/app/_data/_collections';
-import { GenericsServiceService } from 'src/app/_services/generics-service.service';
 import { Component } from '@angular/core';
 // import {AllCertificationsDTO} from '../../../_model/_Dto/CertificationDTO';
 import { _organization } from 'src/app/_data/_organizations';
@@ -17,12 +16,12 @@ export class DashboardCertificationsComponent {
     this.getCertifications();
   }
   getCertifications(): void {
-    this.CertificationS.getCurrentTrainerCerts()
-      .subscribe((res: any) => {
-        const data: CertificationDTO[] = res;
-        this.allcertifications = data;
-      })
-      .unsubscribe();
+    this.CertificationS.getCurrentTrainerCerts().subscribe((res: any) => {
+      console.log('res', res);
+      const data: CertificationDTO[] = res;
+      console.log('data', data);
+      this.allcertifications = data;
+    });
   }
 
   ChangeItems(): void {

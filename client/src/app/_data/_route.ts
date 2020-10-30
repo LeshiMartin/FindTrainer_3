@@ -7,6 +7,7 @@ export const _landing_route = '';
 export const _trainer_send_message = 'contact-me';
 export const _trainer_reviews = 'reviews';
 export const _trainer_certification = 'certification';
+export const _trainer_write_review = 'write-review';
 
 //Common for Users and Trainers
 export const _editAccount_route = 'account';

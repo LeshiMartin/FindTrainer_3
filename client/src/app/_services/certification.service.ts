@@ -2,7 +2,7 @@ import { UserService } from 'src/app/_services/user.service';
 import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, mergeMap } from 'rxjs/operators';
 import { _collection_certifications } from '../_data/_collections';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
@@ -50,13 +50,18 @@ export class CertificationService {
     );
   }
 
-  getCurrentTrainerCerts(): Observable<CertificationDTO[]> {
-    return this.AS.CurrentUser$.pipe(
-      flatMap((curUser: CurrentUserStoreDTO) => {
-        if (curUser) {
-          return this.getAllCertificationsFromOneTrainer(curUser.uid);
+  getCurrentTrainerCerts() {
+    return this.AS.getCurrentUser().pipe(
+      mergeMap(async (curUser: Promise<CurrentUserStoreDTO>) => {
+        const c = await curUser;
+        console.log('c', c);
+        if (c) {
+          return c;
         }
         return null;
+      }),
+      mergeMap((res: CurrentUserStoreDTO) => {
+        return this.getAllCertificationsFromOneTrainer(res.uid);
       })
     );
   }

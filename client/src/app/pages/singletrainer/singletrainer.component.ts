@@ -2,6 +2,7 @@ import {
   _trainer_certification,
   _trainer_reviews,
   _trainers_route,
+  _trainer_write_review,
 } from './../../_data/_route';
 import { ISidebarContent } from './../../_model/_Interface/ISidebar';
 import { Component, OnInit } from '@angular/core';
@@ -47,6 +48,12 @@ export class SingletrainerComponent implements OnInit {
       icon: 'far fa-star',
       route: _trainer_reviews,
     },
+    {
+      name: 'Write a review',
+      icon: 'fas fa-pencil-alt',
+      route: _trainer_write_review,
+    },
+    //<i class="fas fa-pencil-alt"></i>
   ];
   ngOnInit(): void {}
 

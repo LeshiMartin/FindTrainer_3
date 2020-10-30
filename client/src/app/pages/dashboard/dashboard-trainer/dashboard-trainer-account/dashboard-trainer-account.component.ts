@@ -10,5 +10,13 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class DashboardTrainerAccountComponent {
   userData: TrainerDTO;
-  constructor(private userS: UserService, private authS: AuthService) {}
+  constructor(private US: UserService, private AS: AuthService) {
+    this.getCurrentTrainerData();
+  }
+  getCurrentTrainerData(): void {
+    this.US.getCurrentTrainerFull().subscribe((e: TrainerDTO) => {
+      console.log('e', e);
+      this.userData = e;
+    });
+  }
 }

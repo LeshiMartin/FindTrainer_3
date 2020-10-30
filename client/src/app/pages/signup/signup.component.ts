@@ -3,11 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { _landing_route } from 'src/app/_data/_route';
-import {
-  BaseUserDTO,
-  SignInDTO,
-  SignupDTO,
-} from 'src/app/_model/_Dto/BaseUserDTO';
+import { SignupDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({

@@ -1,6 +1,7 @@
+import { ToastrService } from 'ngx-toastr';
 import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
 import { _collection_users } from './../_data/_collections';
-import { _login_route } from './../_data/_route';
+import { _landing_route, _login_route } from './../_data/_route';
 import { Role } from './../_model/_Enum/Role';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { debounce, debounceTime, map, take } from 'rxjs/operators';
 import { _isTrainer, _isUser } from '../_data/_customClaims';
 import { _addTrainer, _addUser } from '../_data/_functionNames';
 import { SignupDTO } from '../_model/_Dto/BaseUserDTO';
@@ -24,8 +25,11 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router,
-    private functions: AngularFireFunctions
-  ) {}
+    private functions: AngularFireFunctions,
+    private TS: ToastrService
+  ) {
+    this.getCurrentUser();
+  }
 
   //Observables
   CurrentUserSource = new BehaviorSubject<CurrentUserStoreDTO>(null);
@@ -36,9 +40,16 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
-  getCurrentUser(): Observable<Promise<CurrentUserStoreDTO>> {
+  getCurrentUser() {
+    if (this.CurrentUserSource.value) {
+      return this.CurrentUser$;
+    }
     return this.afAuth.authState.pipe(
       map(async (res) => {
+        console.log('res', res);
+        if (!res) {
+          return null;
+        }
         const token = await res.getIdTokenResult();
         const CurrentUserData: CurrentUserStoreDTO = new CurrentUserStoreDTO(
           !!token.claims[_isTrainer]
@@ -81,11 +92,22 @@ export class AuthService {
     this.router.navigate([_login_route]);
   }
 
-  async signin(
-    email: string,
-    password: string
-  ): Promise<firebase.auth.UserCredential> {
-    return await this.afAuth.signInWithEmailAndPassword(email, password);
+  signin(email: string, password: string): Promise<void> {
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        const d: CurrentUserStoreDTO =
+          this.CurrentUserSource.value ||
+          new CurrentUserStoreDTO(null, null, null);
+        if (res) {
+          d.uid = res.user.uid;
+          this.CurrentUserSource.next(d);
+        }
+        this.router.navigate([_landing_route]);
+      })
+      .catch((error) => {
+        this.TS.error(error.message);
+      });
   }
 
   async signUp(signupData: SignupDTO): Promise<any> {

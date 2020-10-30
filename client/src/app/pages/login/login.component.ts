@@ -30,13 +30,6 @@ export class LoginComponent {
 
   submitFunc() {
     const { email, password } = this.loginForm.value;
-    this.authService
-      .signin(email, password)
-      .then(() => {
-        this.router.navigate([_landing_route]);
-      })
-      .catch((error) => {
-        this.toastr.error(error.message);
-      });
+    this.authService.signin(email, password);
   }
 }

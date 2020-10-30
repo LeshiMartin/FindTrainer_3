@@ -56,6 +56,8 @@ import { AllcertsComponent } from './pages/singletrainer/allcerts/allcerts.compo
 import { AllreviewsComponent } from './pages/singletrainer/allreviews/allreviews.component';
 import { DisplayReviewsComponent } from './components/display-reviews/display-reviews.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { WriteReviewComponent } from './pages/write-review/write-review.component';
+import { TextAreaComponent } from './_form/text-area/text-area.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +94,8 @@ import { ErrorComponent } from './pages/error/error.component';
     AllcertsComponent,
     AllreviewsComponent,
     ErrorComponent,
+    WriteReviewComponent,
+    TextAreaComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
