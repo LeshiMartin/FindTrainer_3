@@ -1,3 +1,5 @@
+import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
+import { AuthService } from 'src/app/_services/auth.service';
 import { BaseUserDTO } from './../_model/_Dto/BaseUserDTO';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,7 +21,11 @@ import { Role } from '../_model/_Enum/Role';
 export class UserService {
   private CurrentBrowseTrainer = new BehaviorSubject<string>(null);
   currentBrowseTrainer$ = this.CurrentBrowseTrainer.asObservable();
-  constructor(private afStore: AngularFirestore, private _http: HttpClient) {}
+  constructor(
+    private afStore: AngularFirestore,
+    private _http: HttpClient,
+    private AS: AuthService
+  ) {}
 
   getAll(filterParams: FilterParams): AngularFirestoreCollection<TrainerDTO> {
     return this.afStore.collection(
@@ -66,19 +72,26 @@ export class UserService {
       .get()
       .pipe(
         map((res) => {
-          this.CurrentBrowseTrainer.next(id);
           return { ...res.data(), uid: id };
         })
       );
   }
-  getSingleTrainer(id: string) {
+  getSingleTrainer(id: string): Observable<TrainerDTO | BaseUserDTO> {
     return this.getSingleUser(id).pipe(
       map((res: TrainerDTO | BaseUserDTO) => {
-        return res.role === Role.trainer ? res : null;
+        if (res.role === Role.trainer) {
+          const curData: CurrentUserStoreDTO =
+            this.AS.CurrentUserSource.value ||
+            new CurrentUserStoreDTO(null, null, null);
+          curData.browseTrainerId = res.uid;
+          this.AS.CurrentUserSource.next(curData);
+          return res;
+        }
+        return null;
       })
     );
   }
-  uploadImage(vals): Observable<any> {
+  uploadImage(vals: any): Observable<any> {
     let data = vals;
     return this._http.post(
       'https://api.cloudinary.com/v1_1/codexmaker/image/upload',

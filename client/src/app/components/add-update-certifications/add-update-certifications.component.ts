@@ -1,4 +1,4 @@
-import { ICurrentUser } from './../../_model/_Interface/IBaseUser';
+import { CurrentUserStoreDTO } from './../../_model/_Interface/IBaseUser';
 import { IOrganization, _organization } from 'src/app/_data/_organizations';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -25,7 +25,6 @@ export class AddUpdateCertificationsComponent {
 
   constructor(
     private fb: FormBuilder,
-    private CertificationS: CertificationService,
     private GS: GenericsServiceService,
     private toastr: ToastrService,
     private AS: AuthService
@@ -51,7 +50,7 @@ export class AddUpdateCertificationsComponent {
     });
   }
   addCertification(): void {
-    this.AS.CurrentUser$.subscribe((res: ICurrentUser) => {
+    this.AS.CurrentUser$.subscribe((res: CurrentUserStoreDTO) => {
       const item = { trainerId: res.uid, ...this.certificationForm.value };
       if (this.checkIfDuplicateExists(item)) {
         this.toastr.error('Sorry! This is a duplicate certification');

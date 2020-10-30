@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/_services/user.service';
-import { ICurrentUser } from './../_model/_Interface/IBaseUser';
+import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, CollectionReference } from '@angular/fire/firestore';
 import { flatMap, map } from 'rxjs/operators';
@@ -38,10 +38,12 @@ export class CertificationService {
   }
 
   getCurrentBrowseingTrainerCerts(): Observable<CertificationDTO[]> {
-    return this.US.currentBrowseTrainer$.pipe(
-      flatMap((uid: string) => {
-        if (uid) {
-          return this.getAllCertificationsFromOneTrainer(uid);
+    return this.AS.CurrentUser$.pipe(
+      flatMap((curUser: CurrentUserStoreDTO) => {
+        if (curUser) {
+          return this.getAllCertificationsFromOneTrainer(
+            curUser.browseTrainerId
+          );
         }
         return null;
       })
@@ -50,9 +52,9 @@ export class CertificationService {
 
   getCurrentTrainerCerts(): Observable<CertificationDTO[]> {
     return this.AS.CurrentUser$.pipe(
-      flatMap((res: ICurrentUser) => {
-        if (res) {
-          return this.getAllCertificationsFromOneTrainer(res.uid);
+      flatMap((curUser: CurrentUserStoreDTO) => {
+        if (curUser) {
+          return this.getAllCertificationsFromOneTrainer(curUser.uid);
         }
         return null;
       })

@@ -2,11 +2,10 @@ import {
   _trainer_certification,
   _trainer_reviews,
   _trainers_route,
-  _notfound_route,
 } from './../../_data/_route';
 import { ISidebarContent } from './../../_model/_Interface/ISidebar';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { TrainerDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { UserService } from 'src/app/_services/user.service';
@@ -51,7 +50,7 @@ export class SingletrainerComponent implements OnInit {
   ];
   ngOnInit(): void {}
 
-  getTrainer(id: string) {
+  getTrainer(id: string): void {
     this.spinner.show();
     this.userService.getSingleTrainer(id).subscribe((res: TrainerDTO) => {
       if (res) {

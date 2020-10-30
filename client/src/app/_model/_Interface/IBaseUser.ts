@@ -7,7 +7,15 @@ export interface IBaseUser {
   name: string;
   profileUrl: string;
 }
-export interface ICurrentUser {
-  role: Role;
-  uid: string;
+
+export class CurrentUserStoreDTO {
+  role: Role = null;
+  uid: string = null;
+  browseTrainerId: string = null;
+
+  constructor(role: Role, currentUserId: string, browseTrainerId: string) {
+    this.role = role;
+    this.uid = currentUserId;
+    this.browseTrainerId = browseTrainerId;
+  }
 }

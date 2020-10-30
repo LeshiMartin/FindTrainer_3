@@ -51,8 +51,11 @@ import { AddUpdateCertificationsComponent } from './components/add-update-certif
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MessageFormComponent } from './pages/message-form/message-form.component';
-import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews.component';
-import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { DisplayCertificationsComponent } from './components/display-certifications/display-certifications.component';
+import { AllcertsComponent } from './pages/singletrainer/allcerts/allcerts.component';
+import { AllreviewsComponent } from './pages/singletrainer/allreviews/allreviews.component';
+import { DisplayReviewsComponent } from './components/display-reviews/display-reviews.component';
+import { ErrorComponent } from './pages/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +88,10 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     MessageFormComponent,
     DashboardCertificationsComponent,
     DisplayReviewsComponent,
-    NotfoundComponent,
+    DisplayCertificationsComponent,
+    AllcertsComponent,
+    AllreviewsComponent,
+    ErrorComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),

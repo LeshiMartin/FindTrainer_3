@@ -1,4 +1,3 @@
-import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import {
@@ -30,8 +29,8 @@ import { DashboardMessagesComponent } from './pages/dashboard/dashboard-trainer/
 import { DashboardStatsComponent } from './pages/dashboard/dashboard-trainer/dashboard-stats/dashboard-stats.component';
 import { DashboardTrainerComponent } from './pages/dashboard/dashboard-trainer/dashboard-trainer.component';
 import { MessageFormComponent } from './pages/message-form/message-form.component';
-import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews.component';
-import { DisplayCertificationsComponent } from './pages/display-certifications/display-certifications.component';
+import { AllcertsComponent } from './pages/singletrainer/allcerts/allcerts.component';
+import { AllreviewsComponent } from './pages/singletrainer/allreviews/allreviews.component';
 
 const routes: Routes = [
   { path: _login_route, component: LoginComponent },
@@ -46,9 +45,9 @@ const routes: Routes = [
       { path: _trainer_send_message, component: MessageFormComponent },
       {
         path: _trainer_certification,
-        component: DisplayCertificationsComponent,
+        component: AllcertsComponent,
       },
-      { path: _trainer_reviews, component: DisplayReviewsComponent },
+      { path: _trainer_reviews, component: AllreviewsComponent },
     ],
   },
   //=============================== These routes below can only be access by user

@@ -1,4 +1,4 @@
-import { ICurrentUser } from './../_model/_Interface/IBaseUser';
+import { CurrentUserStoreDTO } from './../_model/_Interface/IBaseUser';
 import { _collection_users } from './../_data/_collections';
 import { _login_route } from './../_data/_route';
 import { Role } from './../_model/_Enum/Role';
@@ -28,7 +28,7 @@ export class AuthService {
   ) {}
 
   //Observables
-  private CurrentUserSource = new BehaviorSubject<ICurrentUser>(null);
+  CurrentUserSource = new BehaviorSubject<CurrentUserStoreDTO>(null);
   CurrentUser$ = this.CurrentUserSource.asObservable();
   //Observables
 
@@ -36,18 +36,19 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
-  getCurrentUser(): Observable<Promise<ICurrentUser>> {
+  getCurrentUser(): Observable<Promise<CurrentUserStoreDTO>> {
     return this.afAuth.authState.pipe(
       map(async (res) => {
         const token = await res.getIdTokenResult();
-        const CurrentUserData: ICurrentUser = {
-          uid: res.uid,
-          role: !!token.claims[_isTrainer]
+        const CurrentUserData: CurrentUserStoreDTO = new CurrentUserStoreDTO(
+          !!token.claims[_isTrainer]
             ? Role.trainer
             : !!token.claims[_isUser]
             ? Role.user
             : null,
-        };
+          res.uid,
+          null
+        );
         this.CurrentUserSource.next(CurrentUserData);
         return CurrentUserData;
       })
@@ -108,4 +109,5 @@ export class AuthService {
 
     return await callable({ email }).toPromise(); // Create an Observable and pass any data you want to the function
   }
+  private;
 }

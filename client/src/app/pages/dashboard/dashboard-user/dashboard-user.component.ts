@@ -1,4 +1,4 @@
-import { ICurrentUser } from './../../../_model/_Interface/IBaseUser';
+import { CurrentUserStoreDTO } from './../../../_model/_Interface/IBaseUser';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,7 +23,7 @@ export class DashboardUserComponent {
     this.spinner.show();
     this.authS.getCurrentUser().subscribe(
       async (res) => {
-        const data: ICurrentUser = await res;
+        const data: CurrentUserStoreDTO = await res;
         if (data.role === Role.user) {
           this.SideboardContent = _UserSideboard;
         } else {

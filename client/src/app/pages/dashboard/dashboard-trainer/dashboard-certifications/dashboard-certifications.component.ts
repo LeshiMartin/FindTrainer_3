@@ -13,13 +13,10 @@ import { CertificationService } from 'src/app/_services/certification.service';
 })
 export class DashboardCertificationsComponent {
   allcertifications: CertificationDTO[] = [];
-  constructor(
-    private CertificationS: CertificationService,
-    private GS: GenericsServiceService
-  ) {
+  constructor(private CertificationS: CertificationService) {
     this.getCertifications();
   }
-  getCertifications() {
+  getCertifications(): void {
     this.CertificationS.getCurrentTrainerCerts()
       .subscribe((res: any) => {
         const data: CertificationDTO[] = res;
@@ -28,24 +25,7 @@ export class DashboardCertificationsComponent {
       .unsubscribe();
   }
 
-  organizations = _organization;
-
-  getCertImage(name: string) {
-    let final = null;
-    _organization.forEach((e) => {
-      if (e.name === name) {
-        final = e.imageUrl;
-      }
-    });
-    return final;
-  }
-  ChangeItems() {
+  ChangeItems(): void {
     this.getCertifications();
-  }
-  deleteItem(uid: string) {
-    console.log('uid', uid);
-    this.GS.deleteDoc(uid, _collection_certifications).then(() =>
-      this.getCertifications()
-    );
   }
 }
