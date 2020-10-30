@@ -13,9 +13,8 @@ export class DashboardTrainerAccountComponent {
   constructor(private US: UserService, private AS: AuthService) {
     this.getCurrentTrainerData();
   }
-  getCurrentTrainerData(): void {
+  getCurrentTrainerData() {
     this.US.getCurrentTrainerFull().subscribe((e: TrainerDTO) => {
-      console.log('e', e);
       this.userData = e;
     });
   }

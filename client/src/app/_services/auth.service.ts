@@ -41,9 +41,6 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    if (this.CurrentUserSource.value) {
-      return this.CurrentUser$;
-    }
     return this.afAuth.authState.pipe(
       map(async (res) => {
         console.log('res', res);
