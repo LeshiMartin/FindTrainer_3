@@ -1,9 +1,9 @@
 export class MessageDTO {
-  trainer: string;
+  trainerId: string;
   uid: string;
-  name: string = '';
-  message: string = '';
-  email: string = '';
-  phoneNumber: string = '';
-  title: string = '';
+  name: string = 'Name';
+  message: string = 'Message';
+  email: string = 'email@email.com';
+  phoneNumber: string = '7789996663';
+  title: string = 'Title';
 }

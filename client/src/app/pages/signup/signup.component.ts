@@ -17,14 +17,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
-  initData: SignupDTO = {
-    email: 'sdasdasdas@gmail.com',
-    password: 'Password123@',
-    role: 1,
-    gender: 1,
-    name: 'Eric',
-    profileUrl: null,
-  };
+  initData: SignupDTO = new SignupDTO();
 
   constructor(
     private authService: AuthService,

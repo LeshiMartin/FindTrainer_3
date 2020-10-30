@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { _focus } from 'src/app/_data/_focus';
 import { _organization } from 'src/app/_data/_organizations';
@@ -18,11 +19,16 @@ export class AlltrainersComponent {
   isSinglePage: boolean = false;
   /////////////////////
   filterParams: FilterParams = new FilterParams();
-  constructor(private userService: UserService, private toastr: ToastrService) {
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
+  ) {
     this.formInit();
     this.getAllTrainer();
   }
   private getAllTrainer() {
+    this.spinner.show();
     this.userService
       .getAll(this.filterParams)
       .stateChanges()
@@ -43,6 +49,7 @@ export class AlltrainersComponent {
             this.isSinglePage =
               this.trainers.length < this.filterParams.PageSize ? true : false;
           }
+          this.spinner.hide();
         },
         (err) => {
           console.log('err', err);

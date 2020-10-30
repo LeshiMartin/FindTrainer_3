@@ -1,3 +1,4 @@
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { DashboardUserComponent } from './pages/dashboard/dashboard-user/dashboard-user.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import {
@@ -14,6 +15,7 @@ import {
   _trainer_send_message,
   _trainer_certification,
   _trainer_reviews,
+  _notfound_route,
 } from './_data/_route';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -74,7 +76,12 @@ const routes: Routes = [
       { path: _editAccount_route, component: DashboardTrainerAccountComponent },
     ],
   },
-  //=============================== These routes above can only be access by trainer
+  // {
+  //   path: _notfound_route,
+  //   component: NotfoundComponent,
+  // },
+  // //=============================== These routes above can only be access by trainer
+  // { path: '**', redirectTo: _notfound_route, pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -2,15 +2,16 @@ import {
   _trainer_certification,
   _trainer_reviews,
   _trainers_route,
+  _notfound_route,
 } from './../../_data/_route';
 import { ISidebarContent } from './../../_model/_Interface/ISidebar';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerDTO } from 'src/app/_model/_Dto/BaseUserDTO';
 import { UserService } from 'src/app/_services/user.service';
 import { _trainer_send_message } from 'src/app/_data/_route';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-singletrainer',
   templateUrl: './singletrainer.component.html',
@@ -19,8 +20,8 @@ import { _trainer_send_message } from 'src/app/_data/_route';
 export class SingletrainerComponent implements OnInit {
   currentTrainer: TrainerDTO = null;
   constructor(
-    private modalService: NgbModal,
     private router: ActivatedRoute,
+    private spinner: NgxSpinnerService,
     private userService: UserService
   ) {
     this.router.paramMap.subscribe((params: ParamMap) => {
@@ -51,8 +52,12 @@ export class SingletrainerComponent implements OnInit {
   ngOnInit(): void {}
 
   getTrainer(id: string) {
-    this.userService
-      .getSingleUser(id)
-      .subscribe((res: TrainerDTO) => (this.currentTrainer = res));
+    this.spinner.show();
+    this.userService.getSingleTrainer(id).subscribe((res: TrainerDTO) => {
+      if (res) {
+        this.currentTrainer = res;
+      }
+      this.spinner.hide();
+    });
   }
 }

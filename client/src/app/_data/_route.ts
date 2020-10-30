@@ -18,3 +18,6 @@ export const _editCertification_route = 'certification';
 export const _myMessages_route = 'messages';
 export const _dashboardStats_route = 'stats';
 export const _review_route = 'reviews';
+
+//Error
+export const _notfound_route = 'not-found';

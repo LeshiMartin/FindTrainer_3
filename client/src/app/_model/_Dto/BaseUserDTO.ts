@@ -11,7 +11,8 @@ export class BaseUserDTO implements IBaseUser {
   role: Role = Role.user;
   gender: Gender;
   name: string;
-  profileUrl: string;
+  profileUrl: string = null;
+  uid: string;
 }
 export class SignupDTO extends BaseUserDTO {
   email: string;

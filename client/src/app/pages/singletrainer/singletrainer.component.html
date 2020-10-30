@@ -1,4 +1,4 @@
-<div class="card main no-edge shadow">
+<div class="card main no-edge shadow" *ngIf="currentTrainer?.name">
   <div class="card-body">
     <div class="container">
       <!-- Header -->
@@ -75,4 +75,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="!currentTrainer?.name">
+  <app-notfound [type]="'personal trainer'"></app-notfound>
 </div>

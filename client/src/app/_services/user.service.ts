@@ -1,3 +1,4 @@
+import { BaseUserDTO } from './../_model/_Dto/BaseUserDTO';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -6,17 +7,20 @@ import {
   CollectionReference,
 } from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { _collection_users } from '../_data/_collections';
 import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
 import { AuthService } from './auth.service';
+import { Role } from '../_model/_Enum/Role';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private CurrentBrowseTrainer = new BehaviorSubject<string>(null);
+  currentBrowseTrainer$ = this.CurrentBrowseTrainer.asObservable();
   constructor(
     private AuthS: AuthService,
     private afStore: AngularFirestore,
@@ -69,9 +73,17 @@ export class UserService {
       .get()
       .pipe(
         map((res) => {
+          this.CurrentBrowseTrainer.next(id);
           return { ...res.data(), uid: id };
         })
       );
+  }
+  getSingleTrainer(id: string) {
+    return this.getSingleUser(id).pipe(
+      map((res: TrainerDTO | BaseUserDTO) => {
+        return res.role === Role.trainer ? res : null;
+      })
+    );
   }
   uploadImage(vals): Observable<any> {
     let data = vals;
@@ -80,7 +92,7 @@ export class UserService {
       data
     );
   }
-  EditUser(data: TrainerDTO) {
+  EditUser(data: TrainerDTO): Promise<void> {
     return this.afStore
       .collection(_collection_users)
       .doc(data.uid)

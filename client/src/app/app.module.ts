@@ -52,6 +52,7 @@ import { AddUpdateCertificationsComponent } from './components/add-update-certif
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MessageFormComponent } from './pages/message-form/message-form.component';
 import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +85,7 @@ import { DisplayReviewsComponent } from './pages/display-reviews/display-reviews
     MessageFormComponent,
     DashboardCertificationsComponent,
     DisplayReviewsComponent,
+    NotfoundComponent,
   ],
   imports: [
     BsDatepickerModule.forRoot(),
