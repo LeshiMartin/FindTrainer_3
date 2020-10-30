@@ -7,3 +7,7 @@ export interface IBaseUser {
   name: string;
   profileUrl: string;
 }
+export interface ICurrentUser {
+  role: Role;
+  uid: string;
+}

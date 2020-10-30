@@ -20,10 +20,12 @@ export class DashboardCertificationsComponent {
     this.getCertifications();
   }
   getCertifications() {
-    this.CertificationS.getCurrentUserCerts().subscribe((res: any) => {
-      const data: CertificationDTO[] = res;
-      this.allcertifications = data;
-    });
+    this.CertificationS.getCurrentTrainerCerts()
+      .subscribe((res: any) => {
+        const data: CertificationDTO[] = res;
+        this.allcertifications = data;
+      })
+      .unsubscribe();
   }
 
   organizations = _organization;

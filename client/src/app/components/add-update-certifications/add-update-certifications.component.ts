@@ -1,3 +1,4 @@
+import { ICurrentUser } from './../../_model/_Interface/IBaseUser';
 import { IOrganization, _organization } from 'src/app/_data/_organizations';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -49,9 +50,9 @@ export class AddUpdateCertificationsComponent {
       neverExpire: [this.dataToEdit.neverExpire, [Validators.required]],
     });
   }
-  addCertification() {
-    this.AS.currentUser$.subscribe((uid) => {
-      const item = { trainerId: uid, ...this.certificationForm.value };
+  addCertification(): void {
+    this.AS.CurrentUser$.subscribe((res: ICurrentUser) => {
+      const item = { trainerId: res.uid, ...this.certificationForm.value };
       if (this.checkIfDuplicateExists(item)) {
         this.toastr.error('Sorry! This is a duplicate certification');
       } else {
@@ -66,7 +67,7 @@ export class AddUpdateCertificationsComponent {
             this.toastr.error(err);
           });
       }
-    });
+    }).unsubscribe();
   }
   checkIfDuplicateExists(item: CertificationDTO) {
     return this.existedData.some(

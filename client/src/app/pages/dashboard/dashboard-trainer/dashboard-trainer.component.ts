@@ -1,3 +1,4 @@
+import { ICurrentUser } from './../../../_model/_Interface/IBaseUser';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,10 +21,10 @@ export class DashboardTrainerComponent {
     private spinner: NgxSpinnerService
   ) {
     this.spinner.show();
-    this.authS.checkIfRole(Role.trainer).subscribe(
+    this.authS.getCurrentUser().subscribe(
       async (res) => {
-        const data = await res;
-        if (data) {
+        const data: ICurrentUser = await res;
+        if (data.role === Role.trainer) {
           this.SideboardContent = _TrainerSideBoard;
         } else {
           this.router.navigate([_login_route]);

@@ -6,13 +6,11 @@ import {
   AngularFirestoreCollection,
   CollectionReference,
 } from '@angular/fire/firestore';
-import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { _collection_users } from '../_data/_collections';
 import { TrainerDTO } from '../_model/_Dto/BaseUserDTO';
 import { FilterParams } from '../_model/_Dto/FilterParamsDTO';
-import { AuthService } from './auth.service';
 import { Role } from '../_model/_Enum/Role';
 
 @Injectable({
@@ -21,12 +19,7 @@ import { Role } from '../_model/_Enum/Role';
 export class UserService {
   private CurrentBrowseTrainer = new BehaviorSubject<string>(null);
   currentBrowseTrainer$ = this.CurrentBrowseTrainer.asObservable();
-  constructor(
-    private AuthS: AuthService,
-    private afStore: AngularFirestore,
-    private _http: HttpClient,
-    private toastR: ToastrService
-  ) {}
+  constructor(private afStore: AngularFirestore, private _http: HttpClient) {}
 
   getAll(filterParams: FilterParams): AngularFirestoreCollection<TrainerDTO> {
     return this.afStore.collection(
@@ -97,15 +90,5 @@ export class UserService {
       .collection(_collection_users)
       .doc(data.uid)
       .set(data, { merge: true });
-  }
-  getCurrentUser() {
-    return this.AuthS.checkIfLogin().pipe(
-      switchMap((res) => {
-        if (res) {
-          return this.getSingleUser(res.uid);
-        }
-        return null;
-      })
-    );
   }
 }

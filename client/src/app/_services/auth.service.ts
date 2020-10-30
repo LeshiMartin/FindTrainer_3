@@ -1,3 +1,4 @@
+import { ICurrentUser } from './../_model/_Interface/IBaseUser';
 import { _collection_users } from './../_data/_collections';
 import { _login_route } from './../_data/_route';
 import { Role } from './../_model/_Enum/Role';
@@ -27,36 +28,31 @@ export class AuthService {
   ) {}
 
   //Observables
-  private currentUserSource = new BehaviorSubject<string>(null);
-  currentUser$ = this.currentUserSource.asObservable();
-  private currentUserRole = new BehaviorSubject<Role>(null);
-  currentUserRole$ = this.currentUserRole.asObservable();
+  private CurrentUserSource = new BehaviorSubject<ICurrentUser>(null);
+  CurrentUser$ = this.CurrentUserSource.asObservable();
   //Observables
 
   checkIfLogin(): Observable<firebase.User> {
     return this.afAuth.authState;
   }
-  checkIfRole(role: Role): Observable<Promise<boolean>> {
+
+  getCurrentUser(): Observable<Promise<ICurrentUser>> {
     return this.afAuth.authState.pipe(
       map(async (res) => {
-        if (res) {
-          this.currentUserSource.next(res.uid);
-          let roleName: string;
-          if (role === Role.trainer) {
-            this.currentUserRole.next(Role.trainer);
-            roleName = _isTrainer;
-          } else {
-            this.currentUserRole.next(Role.user);
-            roleName = _isUser;
-          }
-          const token = await res.getIdTokenResult();
-          return !!token.claims[roleName];
-        }
-        return false;
+        const token = await res.getIdTokenResult();
+        const CurrentUserData: ICurrentUser = {
+          uid: res.uid,
+          role: !!token.claims[_isTrainer]
+            ? Role.trainer
+            : !!token.claims[_isUser]
+            ? Role.user
+            : null,
+        };
+        this.CurrentUserSource.next(CurrentUserData);
+        return CurrentUserData;
       })
     );
   }
-
   private updateUserData(
     uid: string,
     signupData: SignupDTO,
@@ -80,6 +76,7 @@ export class AuthService {
 
   async signOut(): Promise<void> {
     await this.afAuth.signOut();
+    this.CurrentUserSource.next(null);
     this.router.navigate([_login_route]);
   }
 
